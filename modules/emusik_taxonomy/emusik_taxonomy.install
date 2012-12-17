@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * Perform install and uninstall routine.
+ * Perform install and uninstall routines.
  */
 
 /**
  * Implements hook_install().
  *
- * Create basic taxonomy vocabulary and related terms.
+ * Create basic taxonomy vocabularies and related terms.
  */
 function emusik_taxonomy_install() {
   $structure = array(
@@ -60,7 +60,7 @@ function emusik_taxonomy_install() {
     foreach ($structure as $entry) {
       $voc = _emusik_taxonomy_create_vocabulary($entry);
 
-      // Make a decision of how the parameters should be sent,
+      // Make a decision of how the parameters should be passed,
       // in case of existing vocabulary (object) and
       // in case of newly created vocabulary (status message).
       if (is_object($voc)) {
@@ -80,12 +80,13 @@ function emusik_taxonomy_install() {
 /**
  * Creates vocabularies.
  *
- * This function creates only unique vocabularies, existing exntries
+ * This function creates only unique vocabularies, existing entries
  * are ignored.
  *
  * @param $entry
  *   An array with basic vocabulary information.
  * @see emusik_taxonomy_install().
+ *
  * @return
  *   A status constaint (SAVED_NEW), a vocabulary objects if it exists,
  *   or FALSE on failure.
@@ -112,11 +113,12 @@ function _emusik_taxonomy_create_vocabulary($entry) {
 }
 
 /**
- * Create term for a certain vocabulary.
+ * Create terms for a certain vocabulary.
  *
  * @param $voc
  *   A vocabulary object, or vocabulary machine name.
  * @see _emusik_taxonomy_create_vocabulary().
+ *
  * @param $terms
  *   An array of terms to be inserted.
  */
@@ -148,7 +150,7 @@ function _emusic_taxonomy_create_terms($voc, $terms) {
  * Generate a taxonomy-specific vocabulary machine name.
  *
  * According to taxonomy module requirements, vocabularies machine names
- * can only contain number and symbols in lower-case and underscored.
+ * can only contain numbers, symbols in lower-case and underscores.
  *
  * @param $name
  *   Vocabulary name, which is to be used to create a machine name.
