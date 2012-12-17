@@ -60,10 +60,16 @@ function emusik_taxonomy_install() {
     foreach ($structure as $entry) {
       $voc = _emusik_taxonomy_create_vocabulary($entry);
 
+      // Make a decision of how the parameters should be sent,
+      // in case of existing vocabulary (object) and
+      // in case of newly created vocabulary (status message).
       if (is_object($voc)) {
         _emusic_taxonomy_create_terms($voc, $entry['terms']);
       }
       elseif ($voc === SAVED_NEW) {
+        // When a vocabulary is created, the respective function
+        // returns only a status constant, so we need a machine name
+        // to create terms for this vocabulary.
         $machine_name = _emusic_taxonomy_vocabulary_create_machine_name($entry['name']);
         _emusic_taxonomy_create_terms($machine_name, $entry['terms']);
       }
@@ -71,6 +77,19 @@ function emusik_taxonomy_install() {
   }
 }
 
+/**
+ * Creates vocabularies.
+ *
+ * This function creates only unique vocabularies, existing exntries
+ * are ignored.
+ *
+ * @param $entry
+ *   An array with basic vocabulary information.
+ * @see emusik_taxonomy_install().
+ * @return
+ *   A status constaint (SAVED_NEW), a vocabulary objects if it exists,
+ *   or FALSE on failure.
+ */
 function _emusik_taxonomy_create_vocabulary($entry) {
   if (is_array($entry)) {
     $new_voc = new stdClass();
@@ -81,8 +100,7 @@ function _emusik_taxonomy_create_vocabulary($entry) {
     if (!empty($new_voc->machine_name)) {
       $existing_voc = taxonomy_vocabulary_machine_name_load($new_voc->machine_name);
       if ($existing_voc === FALSE) {
-        taxonomy_vocabulary_save($new_voc);
-        return SAVED_NEW;
+        return taxonomy_vocabulary_save($new_voc);
       }
       else {
         return $existing_voc;
@@ -93,7 +111,15 @@ function _emusik_taxonomy_create_vocabulary($entry) {
   return FALSE;
 }
 
-
+/**
+ * Create term for a certain vocabulary.
+ *
+ * @param $voc
+ *   A vocabulary object, or vocabulary machine name.
+ * @see _emusik_taxonomy_create_vocabulary().
+ * @param $terms
+ *   An array of terms to be inserted.
+ */
 function _emusic_taxonomy_create_terms($voc, $terms) {
   $target_vocabulary = NULL;
   if (is_string($voc) && !empty($voc)) {
@@ -103,7 +129,8 @@ function _emusic_taxonomy_create_terms($voc, $terms) {
     $target_vocabulary = $voc;
   }
 
-  if (is_array($terms)) {
+  // There are terms to be inserted, and the target vocabulary exists.
+  if (is_array($terms) && isset($target_vocabulary->vid)) {
     foreach ($terms as $term) {
       $existing = taxonomy_get_term_by_name($term);
 
@@ -117,6 +144,17 @@ function _emusic_taxonomy_create_terms($voc, $terms) {
   }
 }
 
+/**
+ * Generate a taxonomy-specific vocabulary machine name.
+ *
+ * According to taxonomy module requirements, vocabularies machine names
+ * can only contain number and symbols in lower-case and underscored.
+ *
+ * @param $name
+ *   Vocabulary name, which is to be used to create a machine name.
+ * @return string
+ *   Machine name with certain prefix, or empty string on failure.
+ */
 function _emusic_taxonomy_vocabulary_create_machine_name($name) {
   if (!empty($name)) {
     return 'emusik_tx_' . preg_replace('/[^a-zA-Z0-9_]/', '_', strtolower($name));
