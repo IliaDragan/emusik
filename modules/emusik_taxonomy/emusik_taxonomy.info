@@ -1,2 +1,6 @@
 name = "eMusik Taxonomy"
 description = "Creates default vocabularies and dummy terms for eMusik project."
+package = "eMusik"
+version = "0.8"
+core = "7.x"
+dependencies[] = "taxonomy"
