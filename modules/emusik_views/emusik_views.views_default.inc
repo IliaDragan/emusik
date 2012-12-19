@@ -110,8 +110,8 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['sticky']['table'] = 'node';
   $handler->display->display_options['filters']['sticky']['field'] = 'sticky';
 
-  /* Display: Library recomendations */
-  $handler = $view->new_display('panel_pane', 'Library recomendations', 'panel_pane_1');
+  /* Display: Library recommendations */
+  $handler = $view->new_display('panel_pane', 'Library recommendations', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Library recommendations';
   $handler->display->display_options['defaults']['link_display'] = FALSE;
@@ -284,7 +284,6 @@ function emusik_views_views_default_views() {
     t('Desc'),
     t('Post date'),
     t('Teaser'),
-    t('Library recomendations'),
     t('Library recommendations'),
     t('<a href="[path]" class="more">More</a>'),
     t('View panes'),
