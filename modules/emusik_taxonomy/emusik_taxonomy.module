@@ -1,0 +1,5 @@
+<?php
+/**
+ * @file
+ * Creates default taxonomy vocabularies and dummy terms.
+ */
