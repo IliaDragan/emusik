@@ -5,3 +5,18 @@
  */
 
 include_once('emusik_views.features.inc');
+
+/**
+ * Implements hook_views_pre_view().
+ *
+ * For any non-front page, disable the node filter "promote to frontpage",
+ * so any node is shown on non-front page for "Library recommendations" and
+ * "Album recomendations" view panes.
+ */
+function emusik_views_views_pre_view(&$view, &$display_id, &$args) {
+  if (!drupal_is_front_page()) {
+    if ($view->current_display == 'panel_pane_1' || $view->current_display == 'panel_pane_6') {
+      unset($view->display_handler->options['filters']['promote']);
+    }
+  }
+}
