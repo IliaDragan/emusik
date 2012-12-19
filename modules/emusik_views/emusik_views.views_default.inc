@@ -247,6 +247,14 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['fields']['path']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['path']['absolute'] = 0;
   $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'ding_news' => 'ding_news',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -259,11 +267,13 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['promote']['table'] = 'node';
   $handler->display->display_options['filters']['promote']['field'] = 'promote';
   $handler->display->display_options['filters']['promote']['value'] = '1';
+  $handler->display->display_options['filters']['promote']['group'] = 0;
   /* Filter criterion: Content: Sticky */
   $handler->display->display_options['filters']['sticky']['id'] = 'sticky';
   $handler->display->display_options['filters']['sticky']['table'] = 'node';
   $handler->display->display_options['filters']['sticky']['field'] = 'sticky';
   $handler->display->display_options['filters']['sticky']['value'] = '1';
+  $handler->display->display_options['filters']['sticky']['group'] = 0;
   /* Filter criterion: Content: Article type (field_ding_article_type) */
   $handler->display->display_options['filters']['field_ding_article_type_tid']['id'] = 'field_ding_article_type_tid';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['table'] = 'field_data_field_ding_article_type';
@@ -271,6 +281,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid']['value'] = array(
     47 => '47',
   );
+  $handler->display->display_options['filters']['field_ding_article_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['vocabulary'] = 'emusik_tx_article_type';
