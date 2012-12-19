@@ -31,7 +31,6 @@ function emusik_taxonomy_install() {
         'Live CD',
         'DVD',
         'Live DVD',
-        'N/A',
       ),
     ),
     array(

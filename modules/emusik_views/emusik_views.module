@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the eMusik_views feature.
+ */
+
+include_once('emusik_views.features.inc');
