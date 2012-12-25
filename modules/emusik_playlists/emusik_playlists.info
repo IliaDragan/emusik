@@ -1,0 +1,5 @@
+name = "eMusik playlists"
+description = "Manage playlists from various media resources."
+version = "0.8"
+package = "eMusik"
+core = "7.x"
