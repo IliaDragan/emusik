@@ -5,3 +5,259 @@
  */
 
 include_once('emusik_playlists.features.inc');
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Alter the content type - add dynamic playlist related fields.
+ */
+function emusik_playlists_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'emusik_playlist_node_form') {
+    $form['playlist'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Playlist'),
+      '#tree' => FALSE,
+      '#prefix' => '<div class="clearfix" id="playlist-option-wrapper">',
+      '#suffix' => '</div>',
+      '#weight' => 3,
+    );
+
+    $form['playlist']['option'] = array(
+      '#prefix' => '<div id="playlist-options">',
+      '#suffix' => '</div>',
+      '#theme' => 'emusik_playlists_options',
+    );
+
+    $form['playlist']['more'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add more'),
+      '#limit_validation_errors' => array(array('option')),
+      '#submit' => array('_emusik_playlist_more_submit'),
+      '#ajax' => array(
+        'callback' => '_emusik_playlist_form_callback',
+        'wrapper' => 'playlist-options',
+        'effect' => 'fade',
+      ),
+    );
+
+    $node = $form['#node'];
+    if (isset($form_state['values']['option_count'])) {
+      $option_count = $form_state['values']['option_count'];
+    }
+    else {
+      $option_count = empty($node->option) ? 1 : count($node->option);
+    }
+
+    // Add the current choices to the form.
+    $delta = 0;
+    $weight = 0;
+    if (isset($node->option)) {
+      $delta = count($node->option);
+      foreach ($node->option as $key => $option) {
+        $form['playlist']['option'][$key] = _emusik_playlists_form_variants(
+          $key,
+          $option['track_title'],
+          $option['track_artist'],
+          $option['spotify_link'],
+          $option['wimp_link'],
+          $option['bibzoom_link'],
+          $option['weight']
+        );
+        $weight = max($option['weight'], $weight);
+      }
+    }
+
+    // Add initial or additional choices.
+    for (; $delta < $option_count; $delta++) {
+      $key = $delta;
+      $weight++;
+      $form['playlist']['option'][$key] = _emusik_playlists_form_variants(
+        $key, '', '', '', '', '', $weight
+      );
+    }
+  }
+}
+
+/**
+ * AJAX callback for new dynamic fields button.
+ *
+ * @see emusik_playlists_form_alter().
+ */
+function _emusik_playlist_form_callback($form, $form_state) {
+  return $form['playlist']['option'];
+}
+
+/**
+ * Custom submit handler for adding new dynamic fields.
+ *
+ * @see _emusik_playlists_form_variants().
+ */
+function _emusik_playlist_more_submit($form, &$form_state) {
+  $form_state['values']['option_count'] = count($form_state['values']['option']) + 1;
+
+  $form_state['node']->option = array_values($form_state['values']['option']);
+  unset($form_state['input']['option']);
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Custom submit handler for deletion of dynamic fields.
+ *
+ * @see _emusik_playlists_form_variants().
+ */
+function _emusik_playlist_more_delete($form, &$form_state) {
+  $clicked_button = $form_state['clicked_button']['#parents'][1];
+  unset($form_state['input']['option'][$clicked_button]);
+
+  $form_state['node']->option = array_values($form_state['input']['option']);
+  unset($form_state['input']['option']);
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Form structure for dynamic fields.
+ *
+ * @see emusik_playlists_form_alter().
+ */
+function _emusik_playlists_form_variants($key, $title = '', $artist = '', $spotify = '', $wimp = '', $bibzoom = '', $weight = 0) {
+  $form = array(
+    '#tree' => TRUE,
+    '#weight' => $weight,
+  );
+
+  $form['optid'] = array(
+    '#type' => 'value',
+    '#value' => NULL,
+    '#parents' => array('option', $key, 'optid'),
+  );
+
+  $form['track_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Track title'),
+    '#required' => TRUE,
+    '#default_value' => $title,
+    '#parents' => array('option', $key, 'track_title'),
+  );
+
+  $form['track_artist'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Track artist'),
+    '#required' => TRUE,
+    '#default_value' => $artist,
+    '#parents' => array('option', $key, 'track_artist'),
+  );
+
+  $form['spotify_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Spotify link'),
+    '#default_value' => $spotify,
+    '#parents' => array('option', $key, 'spotify_link'),
+  );
+
+  $form['wimp_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Wimp link'),
+    '#default_value' => $wimp,
+    '#parents' => array('option', $key, 'wimp_link'),
+  );
+
+  $form['bibzoom_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Bibzoom link'),
+    '#default_value' => $bibzoom,
+    '#parents' => array('option', $key, 'bibzoom_link'),
+  );
+
+  $form['delete_' . $key] = array(
+    '#name' => 'delete_' . $key,
+    '#type' => 'submit',
+    '#value' => t('Delete'),
+    '#submit' => array('_emusik_playlist_more_delete'),
+    '#limit_validation_errors' => array(),
+    '#ajax' => array(
+      'callback' => '_emusik_playlist_form_callback',
+      'wrapper' => 'playlist-options',
+      'effect' => 'fade',
+    ),
+    '#parents' => array('option', $key, 'delete_' . $key),
+  );
+
+  $form['weight'] = array(
+    '#type' => 'weight',
+    '#title_display' => 'invisible',
+    '#default_value' => $weight,
+    '#parents' => array('option', $key, 'weight'),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function emusik_playlists_theme() {
+  $hooks = array();
+
+  $hooks['emusik_playlists_options'] = array(
+    'render element' => 'form',
+  );
+
+  return $hooks;
+}
+
+/**
+ * Theme logic for dynamic field elements.
+ * Mainly used to add tabledrag feature.
+ *
+ * @see emusik_playlists_form_alter().
+ */
+function theme_emusik_playlists_options($variables) {
+  $form = $variables['form'];
+
+  drupal_add_tabledrag('playlist-option-table', 'order', 'sibling', 'option-weight');
+
+  $delta = 0;
+  $rows = array();
+  $headers = array(
+    '',
+    t('Item'),
+    t('Delete'),
+    t('Weight'),
+  );
+
+  foreach (element_children($form) as $key) {
+    $delta++;
+    // Set special classes for drag and drop updating.
+    $form[$key]['weight']['#attributes']['class'] = array('option-weight');
+
+    // Build the table row.
+    $row = array(
+      'data' => array(
+        array(
+          'class' => array('choice-flag')),
+          drupal_render($form[$key]['track_title']) .
+          drupal_render($form[$key]['track_artist']) .
+          drupal_render($form[$key]['spotify_link']) .
+          drupal_render($form[$key]['wimp_link']) .
+          drupal_render($form[$key]['bibzoom_link']
+        ),
+      ),
+      'class' => array('draggable'),
+    );
+
+    $row['data'][] = drupal_render($form[$key]['delete_' . $key]);
+    $row['data'][] = drupal_render($form[$key]['weight']);
+
+    // Add any additional classes set on the row.
+    if (!empty($form[$key]['#attributes']['class'])) {
+      $row['class'] = array_merge($row['class'], $form[$key]['#attributes']['class']);
+    }
+
+    $rows[] = $row;
+  }
+
+  $output = theme('table', array('header' => $headers, 'rows' => $rows, 'attributes' => array('id' => 'playlist-option-table')));
+  $output .= drupal_render_children($form);
+
+  return $output;
+}
