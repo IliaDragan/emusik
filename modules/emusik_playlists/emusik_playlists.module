@@ -3,3 +3,5 @@
  * @file
  * eMusik playlists module file.
  */
+
+include_once('emusik_playlists.features.inc');
