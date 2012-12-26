@@ -56,6 +56,7 @@ function emusik_playlists_form_alter(&$form, $form_state, $form_id) {
       foreach ($node->option as $key => $option) {
         $form['playlist']['option'][$key] = _emusik_playlists_form_variants(
           $key,
+          $option['optid'],
           $option['track_title'],
           $option['track_artist'],
           $option['spotify_link'],
@@ -72,8 +73,89 @@ function emusik_playlists_form_alter(&$form, $form_state, $form_id) {
       $key = $delta;
       $weight++;
       $form['playlist']['option'][$key] = _emusik_playlists_form_variants(
-        $key, '', '', '', '', '', $weight
+        $key, NULL, '', '', '', '', '', $weight
       );
+    }
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Insert additional field data, to it's respective table.
+ */
+function emusik_playlists_node_insert($node) {
+  if ($node->type == 'emusik_playlist') {
+    if (is_array($node->option)) {
+      foreach ($node->option as $option) {
+        db_insert('emusik_playlists')
+          ->fields(array(
+            'nid' => $node->nid,
+            'title' => $option['track_title'],
+            'author' => $option['track_artist'],
+            'spotify_link' => $option['spotify_link'],
+            'wimp_link' => $option['wimp_link'],
+            'bibzoom_link' => $option['bibzoom_link'],
+            'weight' => $option['weight'],
+          ))
+          ->execute();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_load().
+ *
+ * Assign additional field data to node object.
+ */
+function emusik_playlists_node_load($nodes) {
+  foreach (array_keys($nodes) as $nid) {
+    $query = db_select('emusik_playlists', 'emp')
+      ->fields('emp', array('id', 'title', 'author', 'spotify_link', 'wimp_link', 'bibzoom_link', 'weight'))
+      ->condition('emp.nid', $nid, '=')
+      ->execute();
+    $select = $query->fetchAll();
+    foreach ($select as $option) {
+      $nodes[$nid]->option[] = array(
+        'optid' => $option->id,
+        'track_title' => $option->title,
+        'track_artist' => $option->author,
+        'spotify_link' => $option->spotify_link,
+        'wimp_link' => $option->wimp_link,
+        'bibzoom_link' => $option->bibzoom_link,
+        'weight' => $option->weight,
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ *
+ * Update additional field data attached to a node object.
+ */
+function emusik_playlists_node_update($node) {
+  if ($node->type == 'emusik_playlist') {
+    if (is_array($node->option)) {
+      // Delete all the fields attached to a node, then save them again, since
+      // it's not possible to track whether an option have been deleted.
+      db_delete('emusik_playlists')
+        ->condition('nid', $node->nid)
+        ->execute();
+      foreach ($node->option as $option) {
+        db_insert('emusik_playlists')
+          ->fields(array(
+            'nid' => $node->nid,
+            'title' => $option['track_title'],
+            'author' => $option['track_artist'],
+            'spotify_link' => $option['spotify_link'],
+            'wimp_link' => $option['wimp_link'],
+            'bibzoom_link' => $option['bibzoom_link'],
+            'weight' => $option['weight']
+          ))
+          ->execute();
+      }
     }
   }
 }
@@ -119,15 +201,15 @@ function _emusik_playlist_more_delete($form, &$form_state) {
  *
  * @see emusik_playlists_form_alter().
  */
-function _emusik_playlists_form_variants($key, $title = '', $artist = '', $spotify = '', $wimp = '', $bibzoom = '', $weight = 0) {
+function _emusik_playlists_form_variants($key, $optid = NULL, $title = '', $artist = '', $spotify = '', $wimp = '', $bibzoom = '', $weight = 0) {
   $form = array(
     '#tree' => TRUE,
     '#weight' => $weight,
   );
 
   $form['optid'] = array(
-    '#type' => 'value',
-    '#value' => NULL,
+    '#type' => 'hidden',
+    '#default_value' => $optid,
     '#parents' => array('option', $key, 'optid'),
   );
 
