@@ -7,6 +7,13 @@
 include_once('emusik_playlists.features.inc');
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function emusik_playlists_ctools_plugin_directory($owner, $plugin_type) {
+  return 'plugins/' . $plugin_type;
+}
+
+/**
  * Implements hook_form_alter().
  *
  * Alter the content type - add dynamic playlist related fields.
