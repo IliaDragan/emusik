@@ -4,6 +4,9 @@
  * Provide block with social icons, as well as feeds with latest news.
  */
 
+/**
+ * Implements hook_menu().
+ */
 function emusik_social_menu() {
   $items = array();
 
@@ -13,9 +16,21 @@ function emusik_social_menu() {
     'access arguments' => array('configure emusik social'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emusik_social_admin_form'),
-    'type' => MENU_LOCAL_TASK,
     'file' => 'emusik_social.admin.inc',
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function emusik_social_permission() {
+  $perm = array();
+
+  $perm['configure emusik social'] = array(
+    'title' => t('Administer social links.'),
+  );
+
+  return $perm;
 }
