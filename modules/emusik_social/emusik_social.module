@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Provide block with social icons, as well as feeds with latest news.
+ */
+
+function emusik_social_menu() {
+  $items = array();
+
+  $items['admin/config/emusik/social'] = array(
+    'title' => 'eMusik social',
+    'description' => 'Configure links and specify RSS feed.',
+    'access arguments' => array('configure emusik social'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emusik_social_admin_form'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'emusik_social.admin.inc',
+  );
+
+  return $items;
+}
