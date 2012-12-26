@@ -34,3 +34,54 @@ function emusik_social_permission() {
 
   return $perm;
 }
+
+/**
+ * Implements hook_block_info().
+ */
+function emusik_block_info() {
+  $blocks = array();
+
+  $blocks['emusik_social'] = array(
+    'info' => t('eMusik social icons'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emusik_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'emusik_social':
+      global $base_url;
+      $block['subject'] = t('eMusik social');
+      $block['content'] = theme('emusik_social_icons', array(
+        'facebook' => variable_get('emusik_facebook', 'http://facebook.com'),
+        'twitter' => variable_get('emusik_twitter', 'http://twitter.com'),
+        'youtube' => variable_get('emusik_youtube', 'http://youtube.com'),
+        'rss' => variable_get('emusik_rss', $base_url . '/emusik/rss/latest'),
+      ));
+      break;
+  }
+
+  return $block;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function emusik_social_theme($existing, $type, $theme, $path) {
+  $hooks = array();
+
+  $hooks['emusik_social_icons'] = array(
+    'variables' => array(),
+    'path' => $path . '/templates',
+    'template' => 'emusik_social_icons',
+  );
+
+  return $hooks;
+}

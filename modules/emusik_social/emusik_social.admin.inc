@@ -6,7 +6,8 @@
 
 function emusik_social_admin_form($form, $form_state) {
   global $base_url;
-
+  // @todo
+  // Maybe some URL validation?
   $form['emusik_twitter'] = array(
     '#type' => 'textfield',
     '#title' => t('Twitter link'),
@@ -28,7 +29,7 @@ function emusik_social_admin_form($form, $form_state) {
   $form['emusik_rss'] = array(
     '#type' => 'textfield',
     '#title' => t('Feed link'),
-    '#description' => t('Link to RSS feed, displaying latest articles'),
+    '#description' => t('Link to RSS feed, displaying latest articles, NO leading slash.'),
     '#default_value' => variable_get('emusik_rss', $base_url . '/emusik/rss/latest'),
   );
 
