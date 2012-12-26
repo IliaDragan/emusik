@@ -1,0 +1,72 @@
+<?php
+/**
+ * @file
+ * eMusik playlists module install/uninstall routine.
+ *
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function emusik_playlists_schema() {
+  $schema = array();
+
+  $schema['emusik_playlists'] = array(
+    'desciption' => 'Relate nodes with playlists specific data.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'author' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'spotify_link' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+      ),
+      'wimp_link' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+      ),
+      'bibzoom_link' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'foreign keys' => array(
+      'node_id' => array(
+        'table' => 'node',
+        'columns' => array('nid' => 'nid'),
+      )
+    ),
+    'indexes' => array(
+      'id' => array('id'),
+      'nid' => array('nid'),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
