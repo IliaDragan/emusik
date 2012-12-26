@@ -8,9 +8,8 @@ $plugin = array(
   'title' => t('eMusik playlist'),
   'description' => t('eMusik playlist'),
   'single' => TRUE,
-  'content_types' => array('emusik_playlist'),
-  'render callback' => 'emusik_playlist_content_type_render',
-  'edit form' => 'emusik_playlist_content_type_edit_form',
+  'render callback' => 'emusik_playlists_content_type_render',
+  'edit form' => 'emusik_playlists_content_type_edit_form',
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'category' => t('eMusik'),
 );
@@ -18,30 +17,35 @@ $plugin = array(
 /**
  * Implements hook_hook_content_type_edit_form().
  */
-function emusik_playlist_content_type_edit_form($form, &$form_state) {
+function emusik_playlists_content_type_edit_form($form, &$form_state) {
   return $form;
 }
 
 /**
  * Plugin renderer.
  */
-function emusik_playlist_content_type_render($subtype, $conf, $args, $context) {
+function emusik_playlists_content_type_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
   $node = isset($context->data) ? $context->data : NULL;
 
   if (is_object($node)) {
     $block->title = t('eMusik playlist');
+    $items = field_get_items('node', $node, 'field_ref_playlist');
+    $referenced_node = isset($items[0]['nid']) ? node_load($items[0]['nid']) : NULL;
 
     $markup = '';
-
-    foreach ($node->option as $option) {
-      $markup .= theme('emusik_playlist_item', array(
-        'title' => $option['track_title'],
-        'artist' => $option['track_artist'],
-        'spotify' => $option['spotify_link'],
-        'wimp' => $option['wimp_link'],
-        'bibzoom' => $option['bibzoom_link'],
-      ));
+    if (is_object($referenced_node)) {
+      $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
+      foreach ($referenced_node->option as $key => $option) {
+        $markup .= theme('emusik_playlist_item', array(
+          'i' => $key + 1,
+          'title' => $option['track_title'],
+          'artist' => $option['track_artist'],
+          'spotify' => $option['spotify_link'],
+          'wimp' => $option['wimp_link'],
+          'bibzoom' => $option['bibzoom_link'],
+        ));
+      }
     }
 
     $block->content = theme('emusik_playlist_wrapper', array('playlist_content' => $markup));

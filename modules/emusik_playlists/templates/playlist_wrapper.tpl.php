@@ -5,7 +5,12 @@
  */
 ?>
 <div id="emusik-playlist-wrapper">
-  <div class="emusik-playlist-content">
+  <table class="emusik-playlist-content">
+    <tr>
+      <th colspan="2"><?php print t('Track'); ?></th>
+      <th><?php print t('Artist'); ?></th>
+      <th><?php print t('Link'); ?></th>
+    </tr>
     <?php print $playlist_content; ?>
-  </div>
+  </table>
 </div>
