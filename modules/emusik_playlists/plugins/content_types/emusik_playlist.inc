@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * eMusik playlist plugin definition and display logic.
+ */
 
 $plugin = array(
   'title' => t('eMusik playlist'),

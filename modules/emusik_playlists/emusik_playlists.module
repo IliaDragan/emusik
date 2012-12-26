@@ -170,7 +170,7 @@ function emusik_playlists_node_update($node) {
 /**
  * AJAX callback for new dynamic fields button.
  *
- * @see emusik_playlists_form_alter().
+ * @see emusik_playlists_form_alter()
  */
 function _emusik_playlist_form_callback($form, $form_state) {
   return $form['playlist']['option'];
@@ -179,7 +179,7 @@ function _emusik_playlist_form_callback($form, $form_state) {
 /**
  * Custom submit handler for adding new dynamic fields.
  *
- * @see _emusik_playlists_form_variants().
+ * @see _emusik_playlists_form_variants()
  */
 function _emusik_playlist_more_submit($form, &$form_state) {
   $form_state['values']['option_count'] = count($form_state['values']['option']) + 1;
@@ -192,7 +192,7 @@ function _emusik_playlist_more_submit($form, &$form_state) {
 /**
  * Custom submit handler for deletion of dynamic fields.
  *
- * @see _emusik_playlists_form_variants().
+ * @see _emusik_playlists_form_variants()
  */
 function _emusik_playlist_more_delete($form, &$form_state) {
   $clicked_button = $form_state['clicked_button']['#parents'][1];
@@ -206,7 +206,7 @@ function _emusik_playlist_more_delete($form, &$form_state) {
 /**
  * Form structure for dynamic fields.
  *
- * @see emusik_playlists_form_alter().
+ * @see emusik_playlists_form_alter()
  */
 function _emusik_playlists_form_variants($key, $optid = NULL, $title = '', $artist = '', $spotify = '', $wimp = '', $bibzoom = '', $weight = 0) {
   $form = array(
@@ -310,7 +310,7 @@ function emusik_playlists_theme($existing, $type, $theme, $path) {
  * Theme logic for dynamic field elements.
  * Mainly used to add tabledrag feature.
  *
- * @see emusik_playlists_form_alter().
+ * @see emusik_playlists_form_alter()
  */
 function theme_emusik_playlists_options($variables) {
   $form = $variables['form'];
