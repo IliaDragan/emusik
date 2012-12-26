@@ -27,7 +27,20 @@ function emusik_playlist_content_type_render($subtype, $conf, $args, $context) {
 
   if (is_object($node)) {
     $block->title = t('eMusik playlist');
-    $block->content = '';
+
+    $markup = '';
+
+    foreach ($node->option as $option) {
+      $markup .= theme('emusik_playlist_item', array(
+        'title' => $option['track_title'],
+        'artist' => $option['track_artist'],
+        'spotify' => $option['spotify_link'],
+        'wimp' => $option['wimp_link'],
+        'bibzoom' => $option['bibzoom_link'],
+      ));
+    }
+
+    $block->content = theme('emusik_playlist_wrapper', array('playlist_content' => $markup));
   }
 
   return $block;

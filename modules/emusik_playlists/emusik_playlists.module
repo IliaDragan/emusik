@@ -284,11 +284,23 @@ function _emusik_playlists_form_variants($key, $optid = NULL, $title = '', $arti
 /**
  * Implements hook_theme().
  */
-function emusik_playlists_theme() {
+function emusik_playlists_theme($existing, $type, $theme, $path) {
   $hooks = array();
 
   $hooks['emusik_playlists_options'] = array(
     'render element' => 'form',
+  );
+
+  $hooks['emusik_playlist_wrapper'] = array(
+    'variables' => array(),
+    'path' => $path . '/templates',
+    'template' => 'playlist_wrapper'
+  );
+
+  $hooks['emusik_playlist_item'] = array(
+    'variables' => array(),
+    'path' => $path . '/templates',
+    'template' => 'playlist_item'
   );
 
   return $hooks;
