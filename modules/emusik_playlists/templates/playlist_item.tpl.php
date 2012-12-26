@@ -7,7 +7,9 @@
  *   $i
  *   $title
  *   $artist
- *   $links
+ *   $bibzoom
+ *   $wimp
+ *   $spotify
  */
 
 ?>
