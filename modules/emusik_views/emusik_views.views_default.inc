@@ -109,6 +109,8 @@ function emusik_views_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Library recommendations', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Library recommendations';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'library-recommendations';
   $handler->display->display_options['defaults']['link_display'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -158,22 +160,6 @@ function emusik_views_views_default_views() {
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_list_image']['field_api_classes'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -198,6 +184,22 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['fields']['created']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['created']['date_format'] = 'traditional';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd.n.Y';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Teaser */
   $handler->display->display_options['fields']['field_ding_teaser']['id'] = 'field_ding_teaser';
   $handler->display->display_options['fields']['field_ding_teaser']['table'] = 'field_data_field_ding_teaser';
@@ -283,7 +285,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid']['table'] = 'field_data_field_ding_article_type';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['field'] = 'field_ding_article_type_tid';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['value'] = array(
-    47 => '47',
+    6 => '6',
   );
   $handler->display->display_options['filters']['field_ding_article_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['reduce_duplicates'] = 0;
@@ -294,6 +296,8 @@ function emusik_views_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Concerts', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Concerts';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'concerts';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '8';
@@ -422,6 +426,8 @@ function emusik_views_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Latest article', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Latest article';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'latest-article ';
   $handler->display->display_options['defaults']['link_display'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -471,22 +477,6 @@ function emusik_views_views_default_views() {
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_list_image']['field_api_classes'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -511,6 +501,22 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['fields']['created']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['created']['date_format'] = 'traditional';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd.n.Y';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Teaser */
   $handler->display->display_options['fields']['field_ding_teaser']['id'] = 'field_ding_teaser';
   $handler->display->display_options['fields']['field_ding_teaser']['table'] = 'field_data_field_ding_teaser';
@@ -596,7 +602,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid']['table'] = 'field_data_field_ding_article_type';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['field'] = 'field_ding_article_type_tid';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['value'] = array(
-    51 => '51',
+    9 => '9',
   );
   $handler->display->display_options['filters']['field_ding_article_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['reduce_duplicates'] = 0;
@@ -607,6 +613,8 @@ function emusik_views_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Upcoming concert', 'panel_pane_4');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Upcoming concert';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'upcoming-concert';
   $handler->display->display_options['defaults']['link_display'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -656,22 +664,6 @@ function emusik_views_views_default_views() {
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_list_image']['field_api_classes'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -696,6 +688,22 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['fields']['created']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['created']['date_format'] = 'traditional';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd.n.Y';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Teaser */
   $handler->display->display_options['fields']['field_ding_teaser']['id'] = 'field_ding_teaser';
   $handler->display->display_options['fields']['field_ding_teaser']['table'] = 'field_data_field_ding_teaser';
@@ -781,7 +789,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_material_type_tid']['table'] = 'field_data_field_ding_material_type';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['field'] = 'field_ding_material_type_tid';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['value'] = array(
-    34 => '34',
+    10 => '10',
   );
   $handler->display->display_options['filters']['field_ding_material_type_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_ding_material_type_tid']['type'] = 'select';
@@ -791,6 +799,8 @@ function emusik_views_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Danish blogs recommendations', 'panel_pane_5');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Danish blogs recommendations';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'blog-recommendations';
   $handler->display->display_options['defaults']['link_display'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -840,22 +850,6 @@ function emusik_views_views_default_views() {
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_list_image']['field_api_classes'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -880,6 +874,22 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['fields']['created']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['created']['date_format'] = 'traditional';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd.n.Y';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Teaser */
   $handler->display->display_options['fields']['field_ding_teaser']['id'] = 'field_ding_teaser';
   $handler->display->display_options['fields']['field_ding_teaser']['table'] = 'field_data_field_ding_teaser';
@@ -965,7 +975,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_supplier_tid']['table'] = 'field_data_field_ding_supplier';
   $handler->display->display_options['filters']['field_ding_supplier_tid']['field'] = 'field_ding_supplier_tid';
   $handler->display->display_options['filters']['field_ding_supplier_tid']['value'] = array(
-    41 => '41',
+    15 => '15',
   );
   $handler->display->display_options['filters']['field_ding_supplier_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_ding_supplier_tid']['type'] = 'select';
@@ -975,6 +985,8 @@ function emusik_views_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Album recomendations', 'panel_pane_6');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Album recomendations';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'album-recommendations';
   $handler->display->display_options['defaults']['link_display'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -1024,22 +1036,6 @@ function emusik_views_views_default_views() {
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_list_image']['field_api_classes'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -1064,6 +1060,22 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['fields']['created']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['created']['date_format'] = 'traditional';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd.n.Y';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Teaser */
   $handler->display->display_options['fields']['field_ding_teaser']['id'] = 'field_ding_teaser';
   $handler->display->display_options['fields']['field_ding_teaser']['table'] = 'field_data_field_ding_teaser';
@@ -1149,7 +1161,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid']['table'] = 'field_data_field_ding_article_type';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['field'] = 'field_ding_article_type_tid';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['value'] = array(
-    47 => '47',
+    6 => '6',
   );
   $handler->display->display_options['filters']['field_ding_article_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['reduce_duplicates'] = 0;
@@ -1160,8 +1172,8 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_material_type_tid']['table'] = 'field_data_field_ding_material_type';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['field'] = 'field_ding_material_type_tid';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['value'] = array(
-    35 => '35',
-    36 => '36',
+    11 => '11',
+    12 => '12',
   );
   $handler->display->display_options['filters']['field_ding_material_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_material_type_tid']['reduce_duplicates'] = 0;
