@@ -2,7 +2,24 @@
 /**
  * @file
  * eMusik specific functionality lays in this module.
- *
- * @todo
- *   This is just a stub for now. Remove on any logic created here.
  */
+
+/**
+ * Implements hook_menu().
+ */
+function emusik_menu() {
+  $items = array();
+
+  $items['admin/config/emusik'] = array(
+    'title' => 'eMusik',
+    'description' => 'Manage eMusik.',
+    'position' => 'right',
+    'weight' => 20,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  return $items;
+}

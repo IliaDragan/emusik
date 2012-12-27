@@ -1,0 +1,87 @@
+<?php
+/**
+ * @file
+ * Provide block with social icons, as well as feeds with latest news.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function emusik_social_menu() {
+  $items = array();
+
+  $items['admin/config/emusik/social'] = array(
+    'title' => 'eMusik social',
+    'description' => 'Configure links and specify RSS feed.',
+    'access arguments' => array('configure emusik social'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emusik_social_admin_form'),
+    'file' => 'emusik_social.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function emusik_social_permission() {
+  $perm = array();
+
+  $perm['configure emusik social'] = array(
+    'title' => t('Administer social links.'),
+  );
+
+  return $perm;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emusik_block_info() {
+  $blocks = array();
+
+  $blocks['emusik_social'] = array(
+    'info' => t('eMusik social icons'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emusik_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'emusik_social':
+      global $base_url;
+      $block['subject'] = t('eMusik social');
+      $block['content'] = theme('emusik_social_icons', array(
+        'facebook' => variable_get('emusik_facebook', 'http://facebook.com'),
+        'twitter' => variable_get('emusik_twitter', 'http://twitter.com'),
+        'youtube' => variable_get('emusik_youtube', 'http://youtube.com'),
+        'rss' => variable_get('emusik_rss', $base_url . '/emusik/rss/latest'),
+      ));
+      break;
+  }
+
+  return $block;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function emusik_social_theme($existing, $type, $theme, $path) {
+  $hooks = array();
+
+  $hooks['emusik_social_icons'] = array(
+    'variables' => array(),
+    'path' => $path . '/templates',
+    'template' => 'emusik_social_icons',
+  );
+
+  return $hooks;
+}
