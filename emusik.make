@@ -6,3 +6,9 @@ projects[tagclouds][version] = "1.7"
 
 projects[references][subdir] = "contrib"
 projects[references][version] = "2.0"
+
+projects[variable][subdir] = "contrib"
+projects[variable][version] = "2.1"
+
+projects[easy_social][subdir] = "contrib"
+projects[easy_social][version] = "2.9"
