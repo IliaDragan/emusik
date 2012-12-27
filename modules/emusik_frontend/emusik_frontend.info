@@ -1,11 +1,15 @@
 name = eMusik frontend
 core = 7.x
 package = eMusik
+version = 7.x-0.8
+project = emusik_frontend
+dependencies[] = ding_library
 dependencies[] = emusik
 dependencies[] = fe_block
 dependencies[] = features
 dependencies[] = menu
 dependencies[] = search
+features[fe_block_settings][] = ding_library-ding_menu
 features[fe_block_settings][] = emusik-emusik_social
 features[fe_block_settings][] = menu-menu-biblioteket
 features[fe_block_settings][] = menu-menu-blogs
