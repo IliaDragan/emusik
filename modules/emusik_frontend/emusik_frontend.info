@@ -1,0 +1,16 @@
+name = eMusik frontend
+core = 7.x
+package = eMusik
+version = 7.x-0.8
+project = emusik_frontend
+dependencies[] = emusik
+dependencies[] = fe_block
+dependencies[] = menu
+dependencies[] = search
+features[fe_block_settings][] = emusik-emusik_social
+features[fe_block_settings][] = menu-menu-biblioteket
+features[fe_block_settings][] = menu-menu-blogs
+features[fe_block_settings][] = menu-menu-kunstnere
+features[fe_block_settings][] = menu-menu-om
+features[fe_block_settings][] = search-form
+features[features_api][] = api:1
