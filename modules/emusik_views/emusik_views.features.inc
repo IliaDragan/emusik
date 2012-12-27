@@ -18,10 +18,7 @@ function emusik_views_ctools_plugin_api() {
  * Implements hook_views_api().
  */
 function emusik_views_views_api() {
-  list($module, $api) = func_get_args();
-  if ($module == "views" && $api == "views_default") {
-    return array("version" => "3.0");
-  }
+  return array("version" => "3.0");
 }
 
 /**
@@ -30,7 +27,7 @@ function emusik_views_views_api() {
 function emusik_views_image_default_styles() {
   $styles = array();
 
-  // Exported image style: emusik_album_recommend
+  // Exported image style: emusik_album_recommend.
   $styles['emusik_album_recommend'] = array(
     'name' => 'emusik_album_recommend',
     'effects' => array(
@@ -52,7 +49,7 @@ function emusik_views_image_default_styles() {
     ),
   );
 
-  // Exported image style: emusik_blog_recommend
+  // Exported image style: emusik_blog_recommend.
   $styles['emusik_blog_recommend'] = array(
     'name' => 'emusik_blog_recommend',
     'effects' => array(
@@ -74,7 +71,7 @@ function emusik_views_image_default_styles() {
     ),
   );
 
-  // Exported image style: emusik_latest_article
+  // Exported image style: emusik_latest_article.
   $styles['emusik_latest_article'] = array(
     'name' => 'emusik_latest_article',
     'effects' => array(
@@ -96,7 +93,7 @@ function emusik_views_image_default_styles() {
     ),
   );
 
-  // Exported image style: emusik_recommendation
+  // Exported image style: emusik_recommendation.
   $styles['emusik_recommendation'] = array(
     'name' => 'emusik_recommendation',
     'effects' => array(
@@ -118,7 +115,7 @@ function emusik_views_image_default_styles() {
     ),
   );
 
-  // Exported image style: emusik_upcoming_concert
+  // Exported image style: emusik_upcoming_concert.
   $styles['emusik_upcoming_concert'] = array(
     'name' => 'emusik_upcoming_concert',
     'effects' => array(
