@@ -10,7 +10,7 @@
 function emusik_playlists_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-emusik_playlist-body'
+  // Exported field: 'node-emusik_playlist-body'.
   $fields['node-emusik_playlist-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -33,6 +33,7 @@ function emusik_playlists_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -55,7 +56,7 @@ function emusik_playlists_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -95,7 +96,7 @@ function emusik_playlists_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-emusik_playlist-field_playlist_image'
+  // Exported field: 'node-emusik_playlist-field_playlist_image'.
   $fields['node-emusik_playlist-field_playlist_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -116,6 +117,7 @@ function emusik_playlists_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -130,14 +132,14 @@ function emusik_playlists_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => '',
           ),
           'type' => 'image',
-          'weight' => 1,
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
