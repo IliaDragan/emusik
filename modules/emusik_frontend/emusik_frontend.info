@@ -1,6 +1,6 @@
 name = eMusik frontend
 core = 7.x
-package = Features
+package = eMusik
 version = 7.x-0.8
 project = emusik_frontend
 dependencies[] = emusik
