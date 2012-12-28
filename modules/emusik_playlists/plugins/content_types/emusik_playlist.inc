@@ -33,7 +33,7 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
     $items = field_get_items('node', $node, 'field_ref_playlist');
     $referenced_node = isset($items[0]['nid']) ? node_load($items[0]['nid']) : NULL;
 
-    $markup = '';
+    $markup = NULL;
     if (is_object($referenced_node)) {
       $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
       foreach ($referenced_node->option as $key => $option) {
@@ -46,9 +46,11 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
           'bibzoom' => $option['bibzoom_link'],
         ));
       }
+
+      $markup = theme('emusik_playlist_wrapper', array('playlist_content' => $markup));
     }
 
-    $block->content = theme('emusik_playlist_wrapper', array('playlist_content' => $markup));
+    $block->content = $markup;
   }
 
   return $block;
