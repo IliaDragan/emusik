@@ -30,13 +30,24 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
 
   if (is_object($node)) {
     $block->title = t('eMusik playlist');
-    $items = field_get_items('node', $node, 'field_ref_playlist');
-    $referenced_node = isset($items[0]['nid']) ? node_load($items[0]['nid']) : NULL;
-
     $markup = NULL;
-    if (is_object($referenced_node)) {
-      $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
-      foreach ($referenced_node->option as $key => $option) {
+    $primary_node = NULL;
+
+    if ($node->type != 'emusik_playlist') {
+      $items = field_get_items('node', $node, 'field_ref_playlist');
+      $referenced_node = isset($items[0]['nid']) ? node_load($items[0]['nid']) : NULL;
+
+      if (is_object($referenced_node)) {
+        $primary_node = $referenced_node;
+        $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
+      }
+    }
+    else {
+      $primary_node = $node;
+    }
+
+    if (is_object($primary_node)) {
+      foreach ($primary_node->option as $key => $option) {
         $markup .= theme('emusik_playlist_item', array(
           'i' => $key + 1,
           'title' => $option['track_title'],
