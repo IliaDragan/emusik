@@ -23,3 +23,31 @@ function emusik_menu() {
 
   return $items;
 }
+
+/**
+ * Implements hook_block_info().
+ */
+function emusik_block_info() {
+  $blocks = array();
+
+  $blocks['emusik_mkdru_node'] = array(
+    'info' => t('node search menu'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emusik_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'emusik_mkdru_node':
+      $block['subject'] = t('Node search');
+      $block['content'] = '213';
+      break;
+  }
+
+  return $block;
+}
