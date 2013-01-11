@@ -58,16 +58,16 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
 }
 
 /**
-* Theming playlist items.
-*
-* @param object $primary_node.
-*   An object containing a playlist node.
-* @param string $markup
-*   A string containing node details.
-*
-* @return string
-*   String containg themed node.
-*/
+ * Theming playlist items.
+ *
+ * @param object $primary_node.
+ *   An object containing a playlist node.
+ * @param string $markup
+ *   A string containing node details.
+ *
+ * @return string
+ *   String containg themed node.
+ */
 function _emusic_palylist_theme($primary_node, $markup) {
   if (is_object($primary_node)) {
     foreach ($primary_node->option as $key => $option) {
