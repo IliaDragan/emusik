@@ -35,34 +35,46 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
 
     if ($node->type != 'emusik_playlist') {
       $items = field_get_items('node', $node, 'field_ref_playlist');
-      $referenced_node = isset($items[0]['nid']) ? node_load($items[0]['nid']) : NULL;
 
-      if (is_object($referenced_node)) {
-        $primary_node = $referenced_node;
-        $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
+      foreach ($items as $item) {
+        $referenced_node = isset($item['nid']) ? node_load($item['nid']) : NULL;
+
+        if (is_object($referenced_node)) {
+          $primary_node = $referenced_node;
+          $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
+          $markup = _emusic_palylist_theme($primary_node, $markup);
+        }
+        $block->content .= $markup;
       }
     }
     else {
       $primary_node = $node;
+      $block = _emusic_palylist_theme($primary_node, $markup);
+      $block->content = $markup;
     }
-
-    if (is_object($primary_node)) {
-      foreach ($primary_node->option as $key => $option) {
-        $markup .= theme('emusik_playlist_item', array(
-          'i' => $key + 1,
-          'title' => $option['track_title'],
-          'artist' => $option['track_artist'],
-          'spotify' => $option['spotify_link'],
-          'wimp' => $option['wimp_link'],
-          'bibzoom' => $option['bibzoom_link'],
-        ));
-      }
-
-      $markup = theme('emusik_playlist_wrapper', array('playlist_content' => $markup));
-    }
-
-    $block->content = $markup;
   }
 
   return $block;
+}
+
+/*
+* Function for output theming.
+*/
+function _emusic_palylist_theme($primary_node, $markup) {
+  if (is_object($primary_node)) {
+    foreach ($primary_node->option as $key => $option) {
+      $markup .= theme('emusik_playlist_item', array(
+        'i' => $key + 1,
+        'title' => $option['track_title'],
+        'artist' => $option['track_artist'],
+        'spotify' => $option['spotify_link'],
+        'wimp' => $option['wimp_link'],
+        'bibzoom' => $option['bibzoom_link'],
+      ));
+    }
+
+    $markup = theme('emusik_playlist_wrapper', array('playlist_content' => $markup));
+  }
+
+  return $markup;
 }
