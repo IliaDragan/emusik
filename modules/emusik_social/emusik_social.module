@@ -38,7 +38,7 @@ function emusik_social_permission() {
 /**
  * Implements hook_block_info().
  */
-function emusik_block_info() {
+function emusik_social_block_info() {
   $blocks = array();
 
   $blocks['emusik_social'] = array(
@@ -51,7 +51,7 @@ function emusik_block_info() {
 /**
  * Implements hook_block_view().
  */
-function emusik_block_view($delta = '') {
+function emusik_social_block_view($delta = '') {
   $block = array();
 
   switch ($delta) {
