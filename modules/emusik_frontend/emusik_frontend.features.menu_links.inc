@@ -82,20 +82,6 @@ function emusik_frontend_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-48',
   );
-  // Exported menu link: main-menu:events
-  $menu_links['main-menu:events'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'events',
-    'router_path' => 'events',
-    'link_title' => 'Events',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '1',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-44',
-  );
   // Exported menu link: main-menu:growthlayer
   $menu_links['main-menu:growthlayer'] = array(
     'menu_name' => 'main-menu',
@@ -131,34 +117,6 @@ function emusik_frontend_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-47',
-  );
-  // Exported menu link: main-menu:libraries
-  $menu_links['main-menu:libraries'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'libraries',
-    'router_path' => 'libraries',
-    'link_title' => 'Libraries',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '1',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-43',
-  );
-  // Exported menu link: main-menu:news
-  $menu_links['main-menu:news'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'news',
-    'router_path' => 'news',
-    'link_title' => 'News',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '1',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-42',
   );
   // Exported menu link: menu-biblioteket:node/1
   $menu_links['menu-biblioteket:node/1'] = array(
@@ -455,12 +413,9 @@ function emusik_frontend_menu_default_menu_links() {
   t('Blogs');
   t('Deltagende biblioteker');
   t('Deltagende tjenester');
-  t('Events');
   t('Forside');
   t('Koncertanmeldelser');
   t('Koncerter');
-  t('Libraries');
-  t('News');
   t('Om eMusic.dk');
   t('Om eMusik.dk');
   t('Pladeanmeldelser');
