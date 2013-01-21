@@ -289,7 +289,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid']['table'] = 'field_data_field_ding_article_type';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['field'] = 'field_ding_article_type_tid';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['value'] = array(
-    6 => '6',
+    1 => '1',
   );
   $handler->display->display_options['filters']['field_ding_article_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['reduce_duplicates'] = 0;
@@ -610,7 +610,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid']['table'] = 'field_data_field_ding_article_type';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['field'] = 'field_ding_article_type_tid';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['value'] = array(
-    9 => '9',
+    4 => '4',
   );
   $handler->display->display_options['filters']['field_ding_article_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['reduce_duplicates'] = 0;
@@ -801,7 +801,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_material_type_tid']['table'] = 'field_data_field_ding_material_type';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['field'] = 'field_ding_material_type_tid';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['value'] = array(
-    10 => '10',
+    6 => '6',
   );
   $handler->display->display_options['filters']['field_ding_material_type_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_ding_material_type_tid']['type'] = 'select';
@@ -991,7 +991,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_supplier_tid']['table'] = 'field_data_field_ding_supplier';
   $handler->display->display_options['filters']['field_ding_supplier_tid']['field'] = 'field_ding_supplier_tid';
   $handler->display->display_options['filters']['field_ding_supplier_tid']['value'] = array(
-    15 => '15',
+    12 => '12',
   );
   $handler->display->display_options['filters']['field_ding_supplier_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_ding_supplier_tid']['type'] = 'select';
@@ -1149,11 +1149,14 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['sorts']['sticky']['table'] = 'node';
   $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
   $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
-  /* Sort criterion: Content: Date and time (field_event_date) */
-  $handler->display->display_options['sorts']['field_event_date_value']['id'] = 'field_event_date_value';
-  $handler->display->display_options['sorts']['field_event_date_value']['table'] = 'field_data_field_event_date';
-  $handler->display->display_options['sorts']['field_event_date_value']['field'] = 'field_event_date_value';
-  $handler->display->display_options['sorts']['field_event_date_value']['order'] = 'DESC';
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  /* Sort criterion: Content: Published */
+  $handler->display->display_options['sorts']['status']['id'] = 'status';
+  $handler->display->display_options['sorts']['status']['table'] = 'node';
+  $handler->display->display_options['sorts']['status']['field'] = 'status';
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1181,7 +1184,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid']['table'] = 'field_data_field_ding_article_type';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['field'] = 'field_ding_article_type_tid';
   $handler->display->display_options['filters']['field_ding_article_type_tid']['value'] = array(
-    6 => '6',
+    1 => '1',
   );
   $handler->display->display_options['filters']['field_ding_article_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_article_type_tid']['reduce_duplicates'] = 0;
@@ -1192,8 +1195,8 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_material_type_tid']['table'] = 'field_data_field_ding_material_type';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['field'] = 'field_ding_material_type_tid';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['value'] = array(
-    11 => '11',
-    12 => '12',
+    7 => '7',
+    8 => '8',
   );
   $handler->display->display_options['filters']['field_ding_material_type_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_ding_material_type_tid']['reduce_duplicates'] = 0;
