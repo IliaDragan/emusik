@@ -26,7 +26,7 @@ function emusik_playlists_form_alter(&$form, $form_state, $form_id) {
       '#tree' => FALSE,
       '#prefix' => '<div class="clearfix" id="playlist-option-wrapper">',
       '#suffix' => '</div>',
-      '#weight' => 3,
+      '#weight' => 9,
     );
 
     $form['playlist']['option'] = array(
