@@ -42,14 +42,14 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
         if (is_object($referenced_node)) {
           $primary_node = $referenced_node;
           $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
-          $markup = _emusic_palylist_theme($primary_node, $markup);
+          $markup = _emusic_playlist_theme($primary_node, $markup);
         }
         $block->content .= $markup;
       }
     }
     else {
       $primary_node = $node;
-      $block = _emusic_palylist_theme($primary_node, $markup);
+      $markup = _emusic_playlist_theme($primary_node, $markup);
       $block->content = $markup;
     }
   }
@@ -68,7 +68,7 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
  * @return string
  *   String containg themed node.
  */
-function _emusic_palylist_theme($primary_node, $markup) {
+function _emusic_playlist_theme($primary_node, $markup) {
   if (is_object($primary_node)) {
     foreach ($primary_node->option as $key => $option) {
       $markup .= theme('emusik_playlist_item', array(
