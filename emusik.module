@@ -21,6 +21,12 @@ function emusik_menu() {
     'file path' => drupal_get_path('module', 'system'),
   );
 
+  $items['json/search/node/%'] = array(
+    'page callback' => 'json_search_results_endpoint',
+    'page arguments' => array(3),
+    'access arguments' => array('access content'),
+  );
+
   return $items;
 }
 
@@ -50,4 +56,17 @@ function emusik_block_view($delta = '') {
   }
 
   return $block;
+}
+
+/**
+ * Return count of items in search result in JSON format.
+ *
+ * @param string $query
+ *   Search query
+ */
+function json_search_results_endpoint($query) {
+  $result = array(
+    'count' => count((array) node_search_execute($query)),
+  );
+  drupal_json_output($result);
 }
