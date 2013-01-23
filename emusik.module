@@ -60,10 +60,13 @@ function emusik_block_view($delta = '') {
 
 /**
  * Return count of items in search result in JSON format.
+ *
+ * @param string $query
+ *   Search query
  */
 function json_search_results_endpoint($query) {
   $result = array(
-    'count' => count((array)node_search_execute($query))
+    'count' => count((array) node_search_execute($query)),
   );
   drupal_json_output($result);
 }
