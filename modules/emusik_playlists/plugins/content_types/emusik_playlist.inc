@@ -78,6 +78,8 @@ function _emusic_playlist_theme($primary_node, $markup) {
         'spotify' => $option['spotify_link'],
         'wimp' => $option['wimp_link'],
         'bibzoom' => $option['bibzoom_link'],
+        'bibliotek' => $option['bibliotek_link'],
+        'youtube' => $option['youtube_link'],
       ));
     }
 

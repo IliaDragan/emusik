@@ -69,6 +69,8 @@ function emusik_playlists_form_alter(&$form, $form_state, $form_id) {
           $option['spotify_link'],
           $option['wimp_link'],
           $option['bibzoom_link'],
+          $option['bibliotek_link'],
+          $option['youtube_link'],
           $option['weight']
         );
         $weight = max($option['weight'], $weight);
@@ -80,7 +82,7 @@ function emusik_playlists_form_alter(&$form, $form_state, $form_id) {
       $key = $delta;
       $weight++;
       $form['playlist']['option'][$key] = _emusik_playlists_form_variants(
-        $key, NULL, '', '', '', '', '', $weight
+        $key, NULL, '', '', '', '', '', '', '', $weight
       );
     }
   }
@@ -103,6 +105,8 @@ function emusik_playlists_node_insert($node) {
             'spotify_link' => $option['spotify_link'],
             'wimp_link' => $option['wimp_link'],
             'bibzoom_link' => $option['bibzoom_link'],
+            'bibliotek_link' => $option['bibliotek_link'],
+            'youtube_link' => $option['youtube_link'],
             'weight' => $option['weight'],
           ))
           ->execute();
@@ -119,7 +123,7 @@ function emusik_playlists_node_insert($node) {
 function emusik_playlists_node_load($nodes) {
   foreach (array_keys($nodes) as $nid) {
     $query = db_select('emusik_playlists', 'emp')
-      ->fields('emp', array('id', 'title', 'author', 'spotify_link', 'wimp_link', 'bibzoom_link', 'weight'))
+      ->fields('emp', array('id', 'title', 'author', 'spotify_link', 'wimp_link', 'bibzoom_link', 'bibliotek_link', 'youtube_link', 'weight'))
       ->condition('emp.nid', $nid, '=')
       ->execute();
     $select = $query->fetchAll();
@@ -131,6 +135,8 @@ function emusik_playlists_node_load($nodes) {
         'spotify_link' => $option->spotify_link,
         'wimp_link' => $option->wimp_link,
         'bibzoom_link' => $option->bibzoom_link,
+        'bibliotek_link' => $option->bibliotek_link,
+        'youtube_link' => $option->youtube_link,
         'weight' => $option->weight,
       );
     }
@@ -159,6 +165,8 @@ function emusik_playlists_node_update($node) {
             'spotify_link' => $option['spotify_link'],
             'wimp_link' => $option['wimp_link'],
             'bibzoom_link' => $option['bibzoom_link'],
+            'bibliotek_link' => $option['bibliotek_link'],
+            'youtube_link' => $option['youtube_link'],
             'weight' => $option['weight']
           ))
           ->execute();
@@ -208,7 +216,7 @@ function _emusik_playlist_more_delete($form, &$form_state) {
  *
  * @see emusik_playlists_form_alter()
  */
-function _emusik_playlists_form_variants($key, $optid = NULL, $title = '', $artist = '', $spotify = '', $wimp = '', $bibzoom = '', $weight = 0) {
+function _emusik_playlists_form_variants($key, $optid = NULL, $title = '', $artist = '', $spotify = '', $wimp = '', $bibzoom = '', $bibliotek = '', $youtube = '', $weight = 0) {
   $form = array(
     '#tree' => TRUE,
     '#weight' => $weight,
@@ -255,6 +263,20 @@ function _emusik_playlists_form_variants($key, $optid = NULL, $title = '', $arti
     '#title' => t('Bibzoom link'),
     '#default_value' => $bibzoom,
     '#parents' => array('option', $key, 'bibzoom_link'),
+  );
+
+  $form['bibliotek_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Bibliotek link'),
+    '#default_value' => $bibliotek,
+    '#parents' => array('option', $key, 'bibliotek_link'),
+  );
+
+  $form['youtube_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Youtube link'),
+    '#default_value' => $youtube,
+    '#parents' => array('option', $key, 'youtube_link'),
   );
 
   $form['delete_' . $key] = array(
@@ -340,8 +362,9 @@ function theme_emusik_playlists_options($variables) {
           drupal_render($form[$key]['track_artist']) .
           drupal_render($form[$key]['spotify_link']) .
           drupal_render($form[$key]['wimp_link']) .
-          drupal_render($form[$key]['bibzoom_link']
-        ),
+          drupal_render($form[$key]['bibzoom_link']) .
+          drupal_render($form[$key]['bibliotek_link']) .
+          drupal_render($form[$key]['youtube_link']),
       ),
       'class' => array('draggable'),
     );
