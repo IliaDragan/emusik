@@ -31,6 +31,23 @@ function emusik_menu() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function emusik_theme($existing, $type, $theme, $path) {
+  $hooks = array();
+
+  $hooks['emusik_search_header'] = array(
+    'variables' => array(
+      'search_query' => '',
+    ),
+    'template' => 'emusik_search_header',
+    'path' => $path . '/templates',
+  );
+
+  return $hooks;
+}
+
+/**
  * Implements hook_block_info().
  */
 function emusik_block_info() {
@@ -38,6 +55,10 @@ function emusik_block_info() {
 
   $blocks['emusik_mkdru_node'] = array(
     'info' => t('node search menu'),
+  );
+
+  $blocks['emusik_search_header'] = array(
+    'info' => t('Search header for mkdru search'),
   );
 
   return $blocks;
@@ -49,13 +70,20 @@ function emusik_block_info() {
 function emusik_block_view($delta = '') {
   $block = array();
   switch ($delta) {
-    case 'emusik_mkdru_node':
-      $block['subject'] = t('Node search');
-      $block['content'] = '213';
+    case 'emusik_search_header':
+      $block['subject'] = t('Search');
+      $block['content'] = emusik_search_header();
       break;
   }
 
   return $block;
+}
+
+/**
+ * Block view content handler.
+ */
+function emusik_search_header() {
+  return theme('emusik_search_header', array('search_query' => arg(2)));
 }
 
 /**
