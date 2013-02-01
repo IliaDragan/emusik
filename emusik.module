@@ -5,6 +5,13 @@
  */
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function emusik_ctools_plugin_directory($owner, $plugin_type) {
+  return 'plugins/' . $plugin_type;
+}
+
+/**
  * Implements hook_menu().
  */
 function emusik_menu() {
@@ -21,6 +28,13 @@ function emusik_menu() {
     'file path' => drupal_get_path('module', 'system'),
   );
 
+  $items['emusik/autocomplete/%'] = array(
+    'page callback' => 'emusik_autocomplete',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['json/search/node/%'] = array(
     'page callback' => 'json_search_results_endpoint',
     'page arguments' => array(3),
@@ -28,6 +42,34 @@ function emusik_menu() {
   );
 
   return $items;
+}
+
+function emusik_autocomplete($voc, $input = '') {
+  $suggestions = array();
+
+  if (($voc)) {
+    $voc_object = taxonomy_vocabulary_machine_name_load($voc);
+    $vid = $voc_object->vid;
+
+    $tags = db_select('taxonomy_term_data', 'ttd')
+      ->fields('ttd', array('tid', 'name'))
+      ->condition('ttd.vid', $vid)
+      ->condition('ttd.name', '%' . db_like($input) . '%', 'LIKE')
+      ->execute()
+      ->fetchAllKeyed();
+
+    foreach ($tags as $tid => $name) {
+      $n = $name;
+      // Term names containing commas or quotes must be wrapped in quotes.
+      if (strpos($name, ',') !== FALSE || strpos($name, '"') !== FALSE) {
+        $n = '"' . str_replace('"', '""', $name) . '"';
+      }
+      $suggestions[$n] = check_plain($name);
+    }
+  }
+
+  print drupal_json_output($suggestions);
+  drupal_exit(0);
 }
 
 /**
@@ -97,4 +139,24 @@ function json_search_results_endpoint($query) {
     'count' => count((array) node_search_execute($query)),
   );
   drupal_json_output($result);
+}
+
+function emusik_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id === 'views_content_views_panes_content_type_edit_form') {
+    foreach ($form['arguments'] as $key => &$arg) {
+      if ($key == 'tid') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_article_type';
+      }
+      elseif ($key == 'tid_1') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_artist_album_track';
+      }
+      elseif ($key == 'tid_2') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_material_type';
+      }
+      elseif ($key == 'tid_3') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_supplier';
+      }
+    }
+  }
 }
