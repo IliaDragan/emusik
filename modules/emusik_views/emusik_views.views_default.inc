@@ -375,7 +375,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['css_class'] = 'concerts';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '6';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Date and time */
@@ -1406,6 +1406,10 @@ function emusik_views_views_default_views() {
   );
   $handler->display->display_options['fields']['field_ding_body']['field_api_classes'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Global: Random */
+  $handler->display->display_options['sorts']['random']['id'] = 'random';
+  $handler->display->display_options['sorts']['random']['table'] = 'views';
+  $handler->display->display_options['sorts']['random']['field'] = 'random';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Has taxonomy term ID */
   $handler->display->display_options['arguments']['tid']['id'] = 'tid';
@@ -1459,7 +1463,10 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['arguments']['tid_2']['id'] = 'tid_2';
   $handler->display->display_options['arguments']['tid_2']['table'] = 'taxonomy_index';
   $handler->display->display_options['arguments']['tid_2']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid_2']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid_2']['exception']['value'] = '-1';
   $handler->display->display_options['arguments']['tid_2']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid_2']['default_argument_options']['argument'] = '-1';
   $handler->display->display_options['arguments']['tid_2']['default_argument_skip_url'] = 0;
   $handler->display->display_options['arguments']['tid_2']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['tid_2']['summary']['format'] = 'default_summary';
@@ -1531,7 +1538,7 @@ function emusik_views_views_default_views() {
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Content: Artist/Album/Track',
+      'label' => 'Content: Category',
     ),
     'tid_2' => array(
       'type' => 'user',
@@ -1683,16 +1690,10 @@ function emusik_views_views_default_views() {
   );
   $handler->display->display_options['fields']['body']['field_api_classes'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Sticky */
-  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
-  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
-  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
-  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
-  /* Sort criterion: Content: Date and time (field_event_date) */
-  $handler->display->display_options['sorts']['field_event_date_value']['id'] = 'field_event_date_value';
-  $handler->display->display_options['sorts']['field_event_date_value']['table'] = 'field_data_field_event_date';
-  $handler->display->display_options['sorts']['field_event_date_value']['field'] = 'field_event_date_value';
-  $handler->display->display_options['sorts']['field_event_date_value']['order'] = 'DESC';
+  /* Sort criterion: Global: Random */
+  $handler->display->display_options['sorts']['random']['id'] = 'random';
+  $handler->display->display_options['sorts']['random']['table'] = 'views';
+  $handler->display->display_options['sorts']['random']['field'] = 'random';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Has taxonomy term ID */
   $handler->display->display_options['arguments']['tid']['id'] = 'tid';
@@ -1733,7 +1734,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['arguments']['tid_1']['specify_validation'] = 1;
   $handler->display->display_options['arguments']['tid_1']['validate']['type'] = 'taxonomy_term';
   $handler->display->display_options['arguments']['tid_1']['validate_options']['vocabularies'] = array(
-    'emusik_tx_artist_album_track' => 'emusik_tx_artist_album_track',
+    'category' => 'category',
   );
   $handler->display->display_options['arguments']['tid_1']['validate_options']['type'] = 'convert';
   $handler->display->display_options['arguments']['tid_1']['validate_options']['transform'] = 0;
@@ -1821,7 +1822,7 @@ function emusik_views_views_default_views() {
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Content: Artist/Album/Track',
+      'label' => 'Content: Category',
     ),
     'tid_2' => array(
       'type' => 'user',
