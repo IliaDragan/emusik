@@ -14,10 +14,6 @@ function emusik_frontend_default_fe_block_settings() {
 
   // Theme independent visibility settings.
   $export['visibility'] = array(
-    'emusik_social-emusik_social' => array(
-      'delta' => 'emusik_social',
-      'module' => 'emusik_social',
-    ),
     'locale-language' => array(
       'delta' => 'language',
       'module' => 'locale',
@@ -63,20 +59,6 @@ function emusik_frontend_default_fe_block_settings() {
   // bartik
   $theme = array();
 
-  $theme['emusik_social-emusik_social'] = array(
-    'module' => 'emusik_social',
-    'delta' => 'emusik_social',
-    'theme' => 'bartik',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => '1',
-  );
-
   $theme['locale-language'] = array(
     'module' => 'locale',
     'delta' => 'language',
@@ -101,7 +83,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -115,7 +97,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -129,7 +111,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -143,7 +125,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -222,20 +204,6 @@ function emusik_frontend_default_fe_block_settings() {
   // bmc_theme
   $theme = array();
 
-  $theme['emusik_social-emusik_social'] = array(
-    'module' => 'emusik_social',
-    'delta' => 'emusik_social',
-    'theme' => 'bmc_theme',
-    'status' => '1',
-    'weight' => '0',
-    'region' => 'user_first',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => '1',
-  );
-
   $theme['locale-language'] = array(
     'module' => 'locale',
     'delta' => 'language',
@@ -260,7 +228,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -274,7 +242,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -288,7 +256,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -302,7 +270,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -378,182 +346,9 @@ function emusik_frontend_default_fe_block_settings() {
 
   $export['theme']['bmc_theme'] = $theme;
 
-  // omega
-  $theme = array();
-
-  $theme['emusik_social-emusik_social'] = array(
-    'module' => 'emusik_social',
-    'delta' => 'emusik_social',
-    'theme' => 'omega',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => '1',
-  );
-
-  $theme['locale-language'] = array(
-    'module' => 'locale',
-    'delta' => 'language',
-    'theme' => 'omega',
-    'status' => '1',
-    'weight' => '1',
-    'region' => 'content',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => -1,
-  );
-
-  $theme['menu-menu-biblioteket'] = array(
-    'module' => 'menu',
-    'delta' => 'menu-biblioteket',
-    'theme' => 'omega',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $theme['menu-menu-blogs'] = array(
-    'module' => 'menu',
-    'delta' => 'menu-blogs',
-    'theme' => 'omega',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $theme['menu-menu-kunstnere'] = array(
-    'module' => 'menu',
-    'delta' => 'menu-kunstnere',
-    'theme' => 'omega',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $theme['menu-menu-om'] = array(
-    'module' => 'menu',
-    'delta' => 'menu-om',
-    'theme' => 'omega',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $theme['search-form'] = array(
-    'module' => 'search',
-    'delta' => 'form',
-    'theme' => 'omega',
-    'status' => '1',
-    'weight' => '0',
-    'region' => 'content',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $theme['system-help'] = array(
-    'module' => 'system',
-    'delta' => 'help',
-    'theme' => 'omega',
-    'status' => '1',
-    'weight' => '5',
-    'region' => 'content',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $theme['system-main'] = array(
-    'module' => 'system',
-    'delta' => 'main',
-    'theme' => 'omega',
-    'status' => '1',
-    'weight' => '0',
-    'region' => 'content',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $theme['system-main-menu'] = array(
-    'module' => 'system',
-    'delta' => 'main-menu',
-    'theme' => 'omega',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => -1,
-  );
-
-  $theme['workbench-block'] = array(
-    'module' => 'workbench',
-    'delta' => 'block',
-    'theme' => 'omega',
-    'status' => '1',
-    'weight' => '-99',
-    'region' => 'content',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
-  $export['theme']['omega'] = $theme;
-
   // seven
   $theme = array();
 
-  $theme['emusik_social-emusik_social'] = array(
-    'module' => 'emusik_social',
-    'delta' => 'emusik_social',
-    'theme' => 'seven',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => '1',
-  );
-
   $theme['locale-language'] = array(
     'module' => 'locale',
     'delta' => 'language',
@@ -578,7 +373,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -592,7 +387,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -606,7 +401,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -620,7 +415,7 @@ function emusik_frontend_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 

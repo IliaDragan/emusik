@@ -148,7 +148,7 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '6',
+          'weight' => 6,
         ),
         'full' => array(
           'label' => 'above',
@@ -234,7 +234,7 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => 2,
         ),
         'full' => array(
           'label' => 'above',
@@ -317,7 +317,7 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => 5,
         ),
         'full' => array(
           'label' => 'above',
@@ -499,7 +499,7 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => 3,
         ),
         'full' => array(
           'label' => 'above',
@@ -582,7 +582,7 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => 4,
         ),
         'full' => array(
           'label' => 'above',
@@ -665,7 +665,7 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '7',
+          'weight' => 7,
         ),
         'full' => array(
           'label' => 'above',
