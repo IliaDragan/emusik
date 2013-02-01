@@ -32,6 +32,10 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Content: Taxonomy terms on node */
+  $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
+  $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
+  $handler->display->display_options['relationships']['term_node_tid']['field'] = 'term_node_tid';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -48,34 +52,6 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: List image */
-  $handler->display->display_options['fields']['field_list_image']['id'] = 'field_list_image';
-  $handler->display->display_options['fields']['field_list_image']['table'] = 'field_data_field_list_image';
-  $handler->display->display_options['fields']['field_list_image']['field'] = 'field_list_image';
-  $handler->display->display_options['fields']['field_list_image']['label'] = '';
-  $handler->display->display_options['fields']['field_list_image']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_list_image']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_list_image']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_list_image']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_list_image']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_list_image']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_list_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_list_image']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
-  $handler->display->display_options['fields']['field_list_image']['field_api_classes'] = 0;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -89,6 +65,18 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['sorts']['field_event_date_value']['id'] = 'field_event_date_value';
   $handler->display->display_options['sorts']['field_event_date_value']['table'] = 'field_data_field_event_date';
   $handler->display->display_options['sorts']['field_event_date_value']['field'] = 'field_event_date_value';
+  $handler->display->display_options['sorts']['field_event_date_value']['order'] = 'DESC';
+  /* Contextual filter: Content: Author uid */
+  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['table'] = 'node';
+  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['uid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['uid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['uid']['not'] = 0;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -104,6 +92,15 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 0;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+  /* Display: Feed */
+  $handler = $view->new_display('feed', 'Feed', 'feed_1');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'rss';
+  $handler->display->display_options['row_plugin'] = 'node_rss';
+  $handler->display->display_options['path'] = 'emusik/rss/latest';
 
   /* Display: Library recommendations */
   $handler = $view->new_display('panel_pane', 'Library recommendations', 'panel_pane_1');
@@ -1203,14 +1200,338 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_material_type_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_ding_material_type_tid']['vocabulary'] = 'emusik_tx_material_type';
 
-  /* Display: Feed */
-  $handler = $view->new_display('feed', 'Feed', 'feed_1');
+  /* Display: Article list (contextual) */
+  $handler = $view->new_display('panel_pane', 'Article list (contextual)', 'panel_pane_7');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Contextual article list';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'rss';
-  $handler->display->display_options['row_plugin'] = 'node_rss';
-  $handler->display->display_options['path'] = 'emusik/rss/latest';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Sticky */
+  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
+  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
+  /* Sort criterion: Content: Date and time (field_event_date) */
+  $handler->display->display_options['sorts']['field_event_date_value']['id'] = 'field_event_date_value';
+  $handler->display->display_options['sorts']['field_event_date_value']['table'] = 'field_data_field_event_date';
+  $handler->display->display_options['sorts']['field_event_date_value']['field'] = 'field_event_date_value';
+  $handler->display->display_options['sorts']['field_event_date_value']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid']['exception']['value'] = '-1';
+  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid']['default_argument_options']['argument'] = '-1';
+  $handler->display->display_options['arguments']['tid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid']['validate_options']['vocabularies'] = array(
+    'emusik_tx_article_type' => 'emusik_tx_article_type',
+  );
+  $handler->display->display_options['arguments']['tid']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid']['set_breadcrumb'] = 0;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid_1']['id'] = 'tid_1';
+  $handler->display->display_options['arguments']['tid_1']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid_1']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid_1']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid_1']['exception']['value'] = '-1';
+  $handler->display->display_options['arguments']['tid_1']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid_1']['default_argument_options']['argument'] = '-1';
+  $handler->display->display_options['arguments']['tid_1']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid_1']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid_1']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid_1']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid_1']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid_1']['validate_options']['vocabularies'] = array(
+    'emusik_tx_artist_album_track' => 'emusik_tx_artist_album_track',
+  );
+  $handler->display->display_options['arguments']['tid_1']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid_1']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['set_breadcrumb'] = 0;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid_2']['id'] = 'tid_2';
+  $handler->display->display_options['arguments']['tid_2']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid_2']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid_2']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid_2']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid_2']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid_2']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid_2']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid_2']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid_2']['validate_options']['vocabularies'] = array(
+    'emusik_tx_material_type' => 'emusik_tx_material_type',
+  );
+  $handler->display->display_options['arguments']['tid_2']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid_2']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['set_breadcrumb'] = 0;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid_3']['id'] = 'tid_3';
+  $handler->display->display_options['arguments']['tid_3']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid_3']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid_3']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid_3']['exception']['value'] = '-1';
+  $handler->display->display_options['arguments']['tid_3']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid_3']['default_argument_options']['argument'] = '-1';
+  $handler->display->display_options['arguments']['tid_3']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid_3']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid_3']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid_3']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid_3']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid_3']['validate_options']['vocabularies'] = array(
+    'emusik_tx_supplier' => 'emusik_tx_supplier',
+  );
+  $handler->display->display_options['arguments']['tid_3']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid_3']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['set_breadcrumb'] = 0;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'ding_news' => 'ding_news',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  $handler->display->display_options['argument_input'] = array(
+    'tid' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Article type',
+    ),
+    'tid_1' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Artist/Album/Track',
+    ),
+    'tid_2' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Material type',
+    ),
+    'tid_3' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Supplier',
+    ),
+  );
+
+  /* Display: Playlist list (contextual) */
+  $handler = $view->new_display('panel_pane', 'Playlist list (contextual)', 'panel_pane_8');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Contextual playlist list';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Sticky */
+  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
+  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
+  /* Sort criterion: Content: Date and time (field_event_date) */
+  $handler->display->display_options['sorts']['field_event_date_value']['id'] = 'field_event_date_value';
+  $handler->display->display_options['sorts']['field_event_date_value']['table'] = 'field_data_field_event_date';
+  $handler->display->display_options['sorts']['field_event_date_value']['field'] = 'field_event_date_value';
+  $handler->display->display_options['sorts']['field_event_date_value']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid']['exception']['value'] = '-1';
+  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid']['default_argument_options']['argument'] = '-1';
+  $handler->display->display_options['arguments']['tid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid']['validate_options']['vocabularies'] = array(
+    'emusik_tx_article_type' => 'emusik_tx_article_type',
+  );
+  $handler->display->display_options['arguments']['tid']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid']['set_breadcrumb'] = 0;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid_1']['id'] = 'tid_1';
+  $handler->display->display_options['arguments']['tid_1']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid_1']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid_1']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid_1']['exception']['value'] = '-1';
+  $handler->display->display_options['arguments']['tid_1']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid_1']['default_argument_options']['argument'] = '-1';
+  $handler->display->display_options['arguments']['tid_1']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid_1']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid_1']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid_1']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid_1']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid_1']['validate_options']['vocabularies'] = array(
+    'emusik_tx_artist_album_track' => 'emusik_tx_artist_album_track',
+  );
+  $handler->display->display_options['arguments']['tid_1']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid_1']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid_1']['set_breadcrumb'] = 0;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid_2']['id'] = 'tid_2';
+  $handler->display->display_options['arguments']['tid_2']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid_2']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid_2']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid_2']['exception']['value'] = '-1';
+  $handler->display->display_options['arguments']['tid_2']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid_2']['default_argument_options']['argument'] = '-1';
+  $handler->display->display_options['arguments']['tid_2']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid_2']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid_2']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid_2']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid_2']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid_2']['validate_options']['vocabularies'] = array(
+    'emusik_tx_material_type' => 'emusik_tx_material_type',
+  );
+  $handler->display->display_options['arguments']['tid_2']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid_2']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid_2']['set_breadcrumb'] = 0;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid_3']['id'] = 'tid_3';
+  $handler->display->display_options['arguments']['tid_3']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid_3']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid_3']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid_3']['exception']['value'] = '-1';
+  $handler->display->display_options['arguments']['tid_3']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['tid_3']['default_argument_options']['argument'] = '-1';
+  $handler->display->display_options['arguments']['tid_3']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid_3']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid_3']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['tid_3']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['tid_3']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['tid_3']['validate_options']['vocabularies'] = array(
+    'emusik_tx_supplier' => 'emusik_tx_supplier',
+  );
+  $handler->display->display_options['arguments']['tid_3']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['tid_3']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['add_table'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['require_value'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['reduce_duplicates'] = 0;
+  $handler->display->display_options['arguments']['tid_3']['set_breadcrumb'] = 0;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'emusik_playlist' => 'emusik_playlist',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  $handler->display->display_options['argument_input'] = array(
+    'tid' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Article type',
+    ),
+    'tid_1' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Artist/Album/Track',
+    ),
+    'tid_2' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Material type',
+    ),
+    'tid_3' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Supplier',
+    ),
+  );
   $translatables['emusik'] = array(
     t('Master'),
     t('more'),
@@ -1219,7 +1540,10 @@ function emusik_views_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
+    t('term'),
     t('Post date'),
+    t('All'),
+    t('Feed'),
     t('Library recommendations'),
     t('<a href="[path]" class="more">More</a>'),
     t('View panes'),
@@ -1228,7 +1552,10 @@ function emusik_views_views_default_views() {
     t('Upcoming concert'),
     t('Danish blogs recommendations'),
     t('Album recomendations'),
-    t('Feed'),
+    t('Article list (contextual)'),
+    t('Contextual article list'),
+    t('Playlist list (contextual)'),
+    t('Contextual playlist list'),
   );
   $export['emusik'] = $view;
 
