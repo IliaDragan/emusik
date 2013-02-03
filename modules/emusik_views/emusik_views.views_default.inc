@@ -32,10 +32,6 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Content: Taxonomy terms on node */
-  $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
-  $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
-  $handler->display->display_options['relationships']['term_node_tid']['field'] = 'term_node_tid';
   /* Field: Content: Image */
   $handler->display->display_options['fields']['field_playlist_image']['id'] = 'field_playlist_image';
   $handler->display->display_options['fields']['field_playlist_image']['table'] = 'field_data_field_playlist_image';
@@ -141,17 +137,6 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['sorts']['field_event_date_value']['table'] = 'field_data_field_event_date';
   $handler->display->display_options['sorts']['field_event_date_value']['field'] = 'field_event_date_value';
   $handler->display->display_options['sorts']['field_event_date_value']['order'] = 'DESC';
-  /* Contextual filter: Content: Author uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'node';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['uid']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['uid']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['uid']['not'] = 0;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -477,7 +462,7 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_event_date_value']['id'] = 'field_event_date_value';
   $handler->display->display_options['filters']['field_event_date_value']['table'] = 'field_data_field_event_date';
   $handler->display->display_options['filters']['field_event_date_value']['field'] = 'field_event_date_value';
-  $handler->display->display_options['filters']['field_event_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_event_date_value']['operator'] = '>=';
   $handler->display->display_options['filters']['field_event_date_value']['group'] = 0;
   $handler->display->display_options['filters']['field_event_date_value']['granularity'] = 'hour';
   $handler->display->display_options['filters']['field_event_date_value']['default_date'] = 'now';
@@ -1849,8 +1834,6 @@ function emusik_views_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('term'),
-    t('All'),
     t('Feed'),
     t('Library recommendations'),
     t('<a href="[path]" class="more">More</a>'),
@@ -1861,6 +1844,7 @@ function emusik_views_views_default_views() {
     t('Danish blogs recommendations'),
     t('Album recomendations'),
     t('Article list (contextual)'),
+    t('All'),
     t('Playlist list (contextual)'),
   );
   $export['emusik'] = $view;
