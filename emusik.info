@@ -1,0 +1,6 @@
+name = "eMusik"
+description = "eMusik project core module."
+core = "7.x"
+version = "0.8"
+package = "eMusik"
+dependencies[] = "aggregator"

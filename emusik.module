@@ -1,0 +1,162 @@
+<?php
+/**
+ * @file
+ * eMusik specific functionality lays in this module.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function emusik_ctools_plugin_directory($owner, $plugin_type) {
+  return 'plugins/' . $plugin_type;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emusik_menu() {
+  $items = array();
+
+  $items['admin/config/emusik'] = array(
+    'title' => 'eMusik',
+    'description' => 'Manage eMusik.',
+    'position' => 'right',
+    'weight' => 20,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  $items['emusik/autocomplete/%'] = array(
+    'page callback' => 'emusik_autocomplete',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['json/search/node/%'] = array(
+    'page callback' => 'json_search_results_endpoint',
+    'page arguments' => array(3),
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+function emusik_autocomplete($voc, $input = '') {
+  $suggestions = array();
+
+  if (($voc)) {
+    $voc_object = taxonomy_vocabulary_machine_name_load($voc);
+    $vid = $voc_object->vid;
+
+    $tags = db_select('taxonomy_term_data', 'ttd')
+      ->fields('ttd', array('tid', 'name'))
+      ->condition('ttd.vid', $vid)
+      ->condition('ttd.name', '%' . db_like($input) . '%', 'LIKE')
+      ->execute()
+      ->fetchAllKeyed();
+
+    foreach ($tags as $tid => $name) {
+      $n = $name;
+      // Term names containing commas or quotes must be wrapped in quotes.
+      if (strpos($name, ',') !== FALSE || strpos($name, '"') !== FALSE) {
+        $n = '"' . str_replace('"', '""', $name) . '"';
+      }
+      $suggestions[$n] = check_plain($name);
+    }
+  }
+
+  print drupal_json_output($suggestions);
+  drupal_exit(0);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function emusik_theme($existing, $type, $theme, $path) {
+  $hooks = array();
+
+  $hooks['emusik_search_header'] = array(
+    'variables' => array(
+      'search_query' => '',
+    ),
+    'template' => 'emusik_search_header',
+    'path' => $path . '/templates',
+  );
+
+  return $hooks;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emusik_block_info() {
+  $blocks = array();
+
+  $blocks['emusik_mkdru_node'] = array(
+    'info' => t('node search menu'),
+  );
+
+  $blocks['emusik_search_header'] = array(
+    'info' => t('Search header for mkdru search'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emusik_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'emusik_search_header':
+      $block['subject'] = t('Search');
+      $block['content'] = emusik_search_header();
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Block view content handler.
+ */
+function emusik_search_header() {
+  return theme('emusik_search_header', array('search_query' => arg(2)));
+}
+
+/**
+ * Return count of items in search result in JSON format.
+ *
+ * @param string $query
+ *   Search query
+ */
+function json_search_results_endpoint($query) {
+  $result = array(
+    'count' => count((array) node_search_execute($query)),
+  );
+  drupal_json_output($result);
+}
+
+function emusik_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id === 'views_content_views_panes_content_type_edit_form') {
+    foreach ($form['arguments'] as $key => &$arg) {
+      if ($key == 'tid') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_article_type';
+      }
+      elseif ($key == 'tid_1') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_artist_album_track';
+      }
+      elseif ($key == 'tid_2') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_material_type';
+      }
+      elseif ($key == 'tid_3') {
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_supplier';
+      }
+    }
+  }
+}

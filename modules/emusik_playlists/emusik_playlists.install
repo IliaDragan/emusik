@@ -1,0 +1,120 @@
+<?php
+/**
+ * @file
+ * eMusik playlists module install/uninstall routine.
+ *
+ */
+
+/**
+ * Original playlists schema.
+ *
+ * @return
+ *   Schema structure.
+ */
+function emusik_playlists_schema_1() {
+  $schema = array();
+
+  $schema['emusik_playlists'] = array(
+    'desciption' => 'Relate nodes with playlists specific data.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'author' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'spotify_link' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+      ),
+      'wimp_link' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+      ),
+      'bibzoom_link' => array(
+        'type' => 'varchar',
+        'length' => 1024,
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'foreign keys' => array(
+      'node_id' => array(
+        'table' => 'node',
+        'columns' => array('nid' => 'nid'),
+      )
+    ),
+    'indexes' => array(
+      'id' => array('id'),
+      'nid' => array('nid'),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Add two new columns in playlists schema.
+ */
+function emusik_playlists_schema_2() {
+  $schema = emusik_playlists_schema_1();
+
+  $schema['emusik_playlists']['fields']['bibliotek_link'] = array(
+    'type' => 'varchar',
+    'length' => 1024,
+  );
+
+  $schema['emusik_playlists']['fields']['youtube_link'] = array(
+    'type' => 'varchar',
+    'length' => 1024,
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_schema().
+ */
+function emusik_playlists_schema() {
+  return emusik_playlists_schema_2();
+}
+
+/**
+ * Implements hook_update_N.
+ *
+ * Update the playlists table, adding two new columns - bibliotek_link &
+ * youtube_link.
+ */
+function emusik_playlists_update_7001() {
+  $schema = emusik_playlists_schema_2();
+  $table = 'emusik_playlists';
+  $fields = array(
+    'bibliotek_link',
+    'youtube_link',
+  );
+
+  foreach ($fields as $field) {
+    db_add_field($table, $field, $schema[$table]['fields'][$field]);
+  }
+}
