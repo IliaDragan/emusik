@@ -142,7 +142,6 @@ function json_search_results_endpoint($query) {
 }
 
 function emusik_form_alter(&$form, &$form_state, $form_id) {
-
   if ($form_id === 'views_content_views_panes_content_type_edit_form') {
     foreach ($form['arguments'] as $key => &$arg) {
       if ($key == 'tid') {
@@ -156,6 +155,16 @@ function emusik_form_alter(&$form, &$form_state, $form_id) {
       }
       elseif ($key == 'tid_3') {
         $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_supplier';
+      }
+    }
+  }
+  elseif ($form_id === 'search_block_form') {
+    if (arg(0) === 'search') {
+      // Get the actual value of search string form url.
+      $search_string = arg(2);
+
+      if (!empty($search_string)) {
+        $form['search_block_form']['#default_value'] = $search_string;
       }
     }
   }
