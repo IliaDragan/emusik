@@ -474,6 +474,15 @@ function emusik_roles_user_default_permissions() {
     'module' => 'workbench',
   );
 
+  // Exported permission: assign user roles.
+  $permissions['assign user roles'] = array(
+    'name' => 'assign user roles',
+    'roles' => array(
+      0 => 'super editor',
+    ),
+    'module' => 'emusik_roles',
+  );
+
   // Exported permission: block IP addresses.
   $permissions['block IP addresses'] = array(
     'name' => 'block IP addresses',
@@ -1241,6 +1250,7 @@ function emusik_roles_user_default_permissions() {
     'name' => 'view the administration theme',
     'roles' => array(
       0 => 'administrator',
+      1 => 'super editor',
     ),
     'module' => 'system',
   );

@@ -3,3 +3,27 @@
  * @file
  * Drupal needs this blank file.
  */
+
+/**
+ * Implements hook_form_alter().
+ */
+function emusik_roles_form_alter(&$form, &$form_state, $form_id) {
+  // Set some custom permissions for roles field, when creating new users.
+  if ($form_id === 'user_register_form') {
+    $form['account']['roles']['#access'] = user_access('assign user roles');
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function emusik_roles_permission() {
+  $perm = array();
+
+  $perm['assign user roles'] = array(
+    'title' => t('Assign user roles'),
+    'description' => t('Enable to allow assignment of user roles when creating new users.'),
+  );
+
+  return $perm;
+}
