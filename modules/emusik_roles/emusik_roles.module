@@ -9,8 +9,18 @@
  */
 function emusik_roles_form_alter(&$form, &$form_state, $form_id) {
   // Set some custom permissions for roles field, when creating new users.
-  if ($form_id === 'user_register_form') {
+  if ($form_id === 'user_register_form' || $form_id === 'user_profile_form') {
     $form['account']['roles']['#access'] = user_access('assign user roles');
+    global $user;
+
+    if (in_array('super editor', $user->roles)) {
+      foreach ($form['account']['roles']['#options'] as $key => $value) {
+        if ($value === 'administrator') {
+          unset($form['account']['roles']['#options'][$key]);
+          break;
+        }
+      }
+    }
   }
 }
 
