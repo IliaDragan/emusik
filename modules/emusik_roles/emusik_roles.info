@@ -1,7 +1,7 @@
 name = eMusik Roles
 core = 7.x
 package = Features
-version = 0.8
+version = 7.x-0.8
 project = emusik_roles
 dependencies[] = aggregator
 dependencies[] = block
