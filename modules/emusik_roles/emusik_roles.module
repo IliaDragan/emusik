@@ -5,7 +5,7 @@
  */
 
 /**
- * Implements hook_fomr_alter().
+ * Implements hook_form_alter().
  */
 function emusik_roles_form_alter(&$form, &$form_state, $form_id) {
   // Set some custom permissions for roles field, when creating new users.
