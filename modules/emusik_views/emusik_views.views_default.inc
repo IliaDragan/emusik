@@ -1259,8 +1259,6 @@ function emusik_views_views_default_views() {
     t('Feed (playlists)'),
     t('Article type (field_ding_article_type)'),
   );
-
-  );
   $export['emusik'] = $view;
 
   return $export;
