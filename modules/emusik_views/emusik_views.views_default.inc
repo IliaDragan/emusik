@@ -1241,6 +1241,45 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['field_ding_article_type_tid_1']['vocabulary'] = 'emusik_tx_article_type';
   $handler->display->display_options['filters']['field_ding_article_type_tid_1']['error_message'] = 0;
   $handler->display->display_options['path'] = 'emusik/rss/article-playlist';
+
+  /* Display: Local articles */
+  $handler = $view->new_display('feed', 'Local articles', 'feed_2');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'rss';
+  $handler->display->display_options['row_plugin'] = 'node_rss';
+  $handler->display->display_options['row_options']['item_length'] = 'title';
+  $handler->display->display_options['row_options']['links'] = 1;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Search: Search Terms */
+  $handler->display->display_options['arguments']['keys']['id'] = 'keys';
+  $handler->display->display_options['arguments']['keys']['table'] = 'search_index';
+  $handler->display->display_options['arguments']['keys']['field'] = 'keys';
+  $handler->display->display_options['arguments']['keys']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['keys']['default_argument_type'] = 'raw';
+  $handler->display->display_options['arguments']['keys']['default_argument_options']['index'] = '3';
+  $handler->display->display_options['arguments']['keys']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['keys']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['keys']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['keys']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'ding_news' => 'ding_news',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  $handler->display->display_options['path'] = 'emusik/rss/search/%';
+
   $translatables['emusik'] = array(
     t('Master'),
     t('mere'),
@@ -1261,6 +1300,7 @@ function emusik_views_views_default_views() {
     t('Frontpage: Playlist list (contextual)'),
     t('Feed (playlists)'),
     t('Article type (field_ding_article_type)'),
+    t('Local articles'),
   );
   $export['emusik'] = $view;
 
