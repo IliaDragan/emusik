@@ -7,6 +7,7 @@ dependencies[] = "emusik"
 dependencies[] = "emusik_views"
 dependencies[] = "ctools"
 dependencies[] = "strongarm"
+dependencies[] = "facebookshare"
 configure = "admin/config/emusik/social"
 files[] = "emusik_social.admin.inc"
 features[ctools][] = strongarm:strongarm:1
