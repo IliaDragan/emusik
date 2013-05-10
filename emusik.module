@@ -148,7 +148,7 @@ function emusik_form_alter(&$form, &$form_state, $form_id) {
         $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_article_type';
       }
       elseif ($key == 'tid_1') {
-        $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_artist_album_track';
+        $arg['#autocomplete_path'] = 'emusik/autocomplete/category';
       }
       elseif ($key == 'tid_2') {
         $arg['#autocomplete_path'] = 'emusik/autocomplete/emusik_tx_material_type';

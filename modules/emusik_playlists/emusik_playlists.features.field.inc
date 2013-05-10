@@ -72,7 +72,7 @@ function emusik_playlists_field_default_fields() {
             'trim_length' => 600,
           ),
           'type' => 'text_summary_or_trimmed',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -160,7 +160,7 @@ function emusik_playlists_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '6',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -246,7 +246,7 @@ function emusik_playlists_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '7',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -329,7 +329,7 @@ function emusik_playlists_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '5',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -414,10 +414,14 @@ function emusik_playlists_field_default_fields() {
           'weight' => '0',
         ),
         'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => 'content',
+            'image_style' => 'medium',
+          ),
+          'type' => 'image',
+          'weight' => '1',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -511,7 +515,7 @@ function emusik_playlists_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '4',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -594,7 +598,7 @@ function emusik_playlists_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '2',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -677,7 +681,7 @@ function emusik_playlists_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '3',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
