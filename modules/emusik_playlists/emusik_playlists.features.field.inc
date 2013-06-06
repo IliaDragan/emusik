@@ -65,6 +65,13 @@ function emusik_playlists_field_default_fields() {
           'type' => 'text_default',
           'weight' => '1',
         ),
+        'rss' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '1',
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -72,7 +79,7 @@ function emusik_playlists_field_default_fields() {
             'trim_length' => 600,
           ),
           'type' => 'text_summary_or_trimmed',
-          'weight' => '0',
+          'weight' => 0,
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -148,13 +155,20 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 6,
+          'weight' => '6',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -185,6 +199,79 @@ function emusik_playlists_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-emusik_playlist-field_playlist'.
+  $fields['node-emusik_playlist-field_playlist'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_playlist',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'emusik_playlists_field',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'emusik_playlists_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'emusik_playlist',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'emusik_playlists_field',
+          'settings' => array(),
+          'type' => 'emusik_playlists_field_default',
+          'weight' => '8',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'emusik_playlists_field',
+          'settings' => array(),
+          'type' => 'emusik_playlists_field_default',
+          'weight' => '8',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'module' => 'emusik_playlists_field',
+          'settings' => array(),
+          'type' => 'emusik_playlists_field_default',
+          'weight' => '8',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_playlist',
+      'label' => 'Playlist',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'emusik_playlists_field',
+        'settings' => array(),
+        'type' => 'emusik_playlists_field_playlists_form',
+        'weight' => '31',
       ),
     ),
   );
@@ -234,13 +321,20 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 2,
+          'weight' => '2',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -317,13 +411,20 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 5,
+          'weight' => '5',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -409,6 +510,16 @@ function emusik_playlists_field_default_fields() {
           'settings' => array(
             'image_link' => '',
             'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
           ),
           'type' => 'image',
           'weight' => '0',
@@ -503,13 +614,20 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 3,
+          'weight' => '3',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -586,13 +704,20 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 4,
+          'weight' => '4',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -669,13 +794,20 @@ function emusik_playlists_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 7,
+          'weight' => '7',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -717,6 +849,7 @@ function emusik_playlists_field_default_fields() {
   t('Category');
   t('Image');
   t('Material type');
+  t('Playlist');
   t('Supplier');
   t('Tags');
   t('Teaser');
