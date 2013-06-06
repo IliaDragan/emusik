@@ -234,9 +234,8 @@ function emusik_playlists_field_default_fields() {
         ),
         'full' => array(
           'label' => 'hidden',
-          'module' => 'emusik_playlists_field',
           'settings' => array(),
-          'type' => 'emusik_playlists_field_default',
+          'type' => 'hidden',
           'weight' => '8',
         ),
         'rss' => array(
