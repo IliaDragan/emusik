@@ -197,7 +197,7 @@ function emusik_playlists_field_field_widget_form(&$form, &$form_state, $field, 
  *
  * Validate for value emptyness.
  *
- * @see emusik_playlists_field_field_widget_form().
+ * @see emusik_playlists_field_field_widget_form(),
  */
 function _emusik_playlist_empty_value_validate($element, &$form_state, $form) {
   $value = $element['#value'];
@@ -212,7 +212,7 @@ function _emusik_playlist_empty_value_validate($element, &$form_state, $form) {
  *
  * Validate for valid url.
  *
- * @see emusik_playlists_field_field_widget_form().
+ * @see emusik_playlists_field_field_widget_form(),
  */
 function _emusik_playlist_value_valid_url($element, &$form_state, $form) {
   $value = $element['#value'];
