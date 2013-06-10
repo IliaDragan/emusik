@@ -1,0 +1,5 @@
+name = eMusik playlists field
+description = Provides playlist related fields
+package = eMusik
+core = 7.x
+version = 7.x-0.8

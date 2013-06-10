@@ -1,0 +1,223 @@
+<?php
+/**
+ * @file
+ *
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function emusik_playlists_field_field_info() {
+  $field = array();
+
+  $field['emusik_playlists_field'] = array(
+    'label' => t('eMusik playlist'),
+    'description' => t('Playlist field'),
+    'default_widget' => 'emusik_playlists_field_playlists_form',
+    'default_formatter' => 'emusik_playlists_field_default',
+  );
+
+  return $field;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function emusik_playlists_field_field_formatter_info() {
+  $formatters = array();
+
+  $formatters['emusik_playlists_field_default'] = array(
+    'label' => t('Default'),
+    'field types' => array('emusik_playlists_field'),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function emusik_playlists_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'emusik_playlists_field_default':
+
+      $header = array(
+        array('data' => t('Track'), 'colspan' => 2),
+        t('Artist'),
+        t('Link'),
+      );
+      $rows = array();
+
+      $i = 1;
+      foreach ($items as $delta => $item) {
+        $links = array(
+          !empty($item['bibzoom_link']) ? l('', $item['bibzoom_link'], array('attributes' => array('class' => array('bibzoom'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
+          !empty($item['wimp_link']) ? l('', $item['wimp_link'], array('attributes' => array('class' => array('wimp'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
+          !empty($item['spotify_link']) ? l('', $item['spotify_link'], array('attributes' => array('class' => array('spotify'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
+          !empty($item['bibliotek_link']) ? l('', $item['bibliotek_link'], array('attributes' => array('class' => array('bibliotek'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
+          !empty($item['youtube_link']) ? l('', $item['youtube_link'], array('attributes' => array('class' => array('youtube'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
+        );
+
+        $rows[$delta] = array(
+          $i . '.',
+          $item['title'],
+          $item['author'],
+          implode('', $links),
+        );
+
+        $i++;
+      }
+
+      $element[0]['#markup'] = theme_table(array(
+        'header' => $header,
+        'rows' => $rows,
+        'attributes' => array(),
+        'caption' => '',
+        'colgroups' => array(),
+      ));
+
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function emusik_playlists_field_field_is_empty($item, $field) {
+  if ($field['type'] == 'emusik_playlists_field') {
+
+    $columns = array(
+      'title',
+      'author',
+      'spotify_link',
+      'wimp_link',
+      'bibzoom_link',
+      'bibliotek_link',
+      'youtube_link'
+    );
+
+    $empty = TRUE;
+
+    foreach ($columns as $column) {
+      if (!empty($item[$column])) {
+        $empty = FALSE;
+        break;
+      }
+    }
+
+    return $empty;
+  }
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function emusik_playlists_field_field_widget_info() {
+  $widgets = array();
+
+  $widgets['emusik_playlists_field_playlists_form'] = array(
+    'label' => t('Multiple value playlist'),
+    'field types' => array('emusik_playlists_field'),
+    'behaviors' => array(
+      'mutiple values' => FIELD_BEHAVIOR_DEFAULT,
+      'default value' => FIELD_BEHAVIOR_DEFAULT,
+    ),
+  );
+
+  return $widgets;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function emusik_playlists_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $base = $element;
+
+  if ($instance['widget']['type'] == 'emusik_playlists_field_playlists_form') {
+    $widget = $instance['widget'];
+    $settings = $widget['settings'];
+
+    $element['title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Track title'),
+      '#default_value' => isset($items[$delta]['title']) ? $items[$delta]['title'] : NULL,
+    );
+
+    $element['author'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Track artist'),
+      '#default_value' => isset($items[$delta]['author']) ? $items[$delta]['author'] : NULL,
+    );
+
+    $element['spotify_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Spotify link'),
+      '#default_value' => isset($items[$delta]['spotify_link']) ? $items[$delta]['spotify_link'] : NULL,
+      '#element_validate' => array('_emusik_playlist_value_valid_url'),
+    );
+
+    $element['wimp_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Wimp link'),
+      '#default_value' => isset($items[$delta]['wimp_link']) ? $items[$delta]['wimp_link'] : NULL,
+      '#element_validate' => array('_emusik_playlist_value_valid_url'),
+    );
+
+    $element['bibzoom_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Bibzoom link'),
+      '#default_value' => isset($items[$delta]['bibzoom_link']) ? $items[$delta]['bibzoom_link'] : NULL,
+      '#element_validate' => array('_emusik_playlist_value_valid_url'),
+    );
+
+    $element['bibliotek_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Bibliotek link'),
+      '#default_value' => isset($items[$delta]['bibliotek_link']) ? $items[$delta]['bibliotek_link'] : NULL,
+      '#element_validate' => array('_emusik_playlist_value_valid_url'),
+    );
+
+    $element['youtube_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Youtube link'),
+      '#default_value' => isset($items[$delta]['youtube_link']) ? $items[$delta]['youtube_link'] : NULL,
+      '#element_validate' => array('_emusik_playlist_value_valid_url'),
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Custom element validator.
+ *
+ * Validate for value emptyness.
+ *
+ * @see emusik_playlists_field_field_widget_form(),
+ */
+function _emusik_playlist_empty_value_validate($element, &$form_state, $form) {
+  $value = $element['#value'];
+
+  if (empty($value)) {
+    form_error($element, t('@title value is required', array('@title' => $element['#title'])));
+  }
+}
+
+/**
+ * Custom element validator.
+ *
+ * Validate for valid url.
+ *
+ * @see emusik_playlists_field_field_widget_form(),
+ */
+function _emusik_playlist_value_valid_url($element, &$form_state, $form) {
+  $value = $element['#value'];
+
+  if (!empty($value) && !valid_url($value, TRUE)) {
+    form_error($element, t('Invalid url'));
+  }
+}
