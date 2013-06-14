@@ -6,7 +6,7 @@
 
 $plugin = array(
   'title' => t('eMusik playlist'),
-  'description' => t('eMusik playlist'),
+  'description' => t('Related eMusik playlist'),
   'single' => TRUE,
   'render callback' => 'emusik_playlists_content_type_render',
   'edit form' => 'emusik_playlists_content_type_edit_form',
@@ -33,58 +33,18 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
     $markup = NULL;
     $primary_node = NULL;
 
-    if ($node->type != 'emusik_playlist') {
-      $items = field_get_items('node', $node, 'field_ref_playlist');
+    $items = field_get_items('node', $node, 'field_ref_playlist');
 
-      foreach ($items as $item) {
-        $referenced_node = isset($item['nid']) ? node_load($item['nid']) : NULL;
+    foreach ($items as $item) {
+      $referenced_node = isset($item['nid']) ? node_load($item['nid']) : NULL;
 
-        if (is_object($referenced_node)) {
-          $primary_node = $referenced_node;
-          $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
-          $markup = _emusic_playlist_theme($primary_node, $markup);
-        }
-        $block->content .= $markup;
+      if (is_object($referenced_node)) {
+        $primary_node = $referenced_node;
+        $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
       }
-    }
-    else {
-      $primary_node = $node;
-      $markup = _emusic_playlist_theme($primary_node, $markup);
       $block->content = $markup;
     }
   }
 
   return $block;
-}
-
-/**
- * Theming playlist items.
- *
- * @param object $primary_node.
- *   An object containing a playlist node.
- * @param string $markup
- *   A string containing node details.
- *
- * @return string
- *   String containg themed node.
- */
-function _emusic_playlist_theme($primary_node, $markup) {
-  if (is_object($primary_node)) {
-    foreach ($primary_node->option as $key => $option) {
-      $markup .= theme('emusik_playlist_item', array(
-        'i' => $key + 1,
-        'title' => $option['track_title'],
-        'artist' => $option['track_artist'],
-        'spotify' => $option['spotify_link'],
-        'wimp' => $option['wimp_link'],
-        'bibzoom' => $option['bibzoom_link'],
-        'bibliotek' => $option['bibliotek_link'],
-        'youtube' => $option['youtube_link'],
-      ));
-    }
-
-    $markup = theme('emusik_playlist_wrapper', array('playlist_content' => $markup));
-  }
-
-  return $markup;
 }

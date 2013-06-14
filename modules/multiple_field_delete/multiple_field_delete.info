@@ -1,0 +1,5 @@
+name = Multiple field delete
+description = Add a delete button to multiple value, drag'n'drop fields.
+core = 7.x
+version = 7.x-0.1
+configure = admin/config/multiple_field_delete/settings
