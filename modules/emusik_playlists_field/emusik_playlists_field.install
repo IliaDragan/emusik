@@ -69,6 +69,8 @@ function emusik_playlists_field_update_7000() {
     ->execute()
     ->fetchAll();
 
+  $primary_keys = array();
+
   foreach ($result as $object) {
     $row = array(
       'entity_type' => 'node',
@@ -87,9 +89,26 @@ function emusik_playlists_field_update_7000() {
       'field_playlist_youtube_link' => $object->youtube_link,
     );
 
+    $pk = array(
+      $row['entity_type'],
+      $row['entity_id'],
+      $row['deleted'],
+      $row['delta'],
+      $row['language'],
+    );
+
+    // Make sure primary keys do not repeat themselves.
+    while (in_array(implode('-', $pk), $primary_keys)) {
+      $pk['delta'] ++;
+      $row['delta']++;
+    }
+
+    $primary_keys[] = implode('-', $pk);
+
     db_insert('field_data_field_playlist')
       ->fields($row)
       ->execute();
+
     db_insert('field_revision_field_playlist')
       ->fields($row)
       ->execute();
