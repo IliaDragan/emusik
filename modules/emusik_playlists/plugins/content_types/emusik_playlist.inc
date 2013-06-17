@@ -30,7 +30,7 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
 
   if (is_object($node)) {
     $block->title = t('eMusik playlist');
-    $markup = NULL;
+    $markup = array();
     $primary_node = NULL;
 
     $items = field_get_items('node', $node, 'field_ref_playlist');
@@ -40,10 +40,11 @@ function emusik_playlists_content_type_render($subtype, $conf, $args, $context) 
 
       if (is_object($referenced_node)) {
         $primary_node = $referenced_node;
-        $markup = drupal_render(entity_view('node', array($referenced_node), 'full'));
+        $markup[] = drupal_render(entity_view('node', array($referenced_node), 'full'));
       }
-      $block->content = $markup;
     }
+
+    $block->content = implode($markup);
   }
 
   return $block;
