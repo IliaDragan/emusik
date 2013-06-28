@@ -133,7 +133,7 @@ function _emusic_taxonomy_create_terms($voc, $terms) {
   // There are terms to be inserted, and the target vocabulary exists.
   if (is_array($terms) && isset($target_vocabulary->vid)) {
     foreach ($terms as $term) {
-      $existing = taxonomy_get_term_by_name($term);
+      $existing = taxonomy_get_term_by_name($term, $target_vocabulary->machine_name);
 
       if (count($existing) == 0) {
         $new_term = new stdClass();
@@ -174,3 +174,27 @@ function emusik_taxonomy_update_7000() {
   taxonomy_vocabulary_save($v); 
 }
 
+/**
+ * Update Material type taxonomy.
+ */
+function emusik_taxonomy_update_7001() {
+  $v = taxonomy_vocabulary_machine_name_load('emusik_tx_material_type');
+  // Rename vacobulary.
+  $v->name = 'Genre';
+  taxonomy_vocabulary_save($v);
+
+  // remove all existing terms.
+  $tree = taxonomy_get_tree($v->vid);
+  foreach ($tree as $t) {
+    taxonomy_term_delete($t->tid);
+  }
+  // Create new terms.
+  $terms = array(
+    'Klassisk',
+    'Pop/Rock',
+    'World',
+    'Jazz',
+    'Elektronisk',
+  );
+  _emusic_taxonomy_create_terms($v->machine_name, $terms);
+}
