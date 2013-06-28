@@ -163,3 +163,14 @@ function _emusic_taxonomy_vocabulary_create_machine_name($name) {
 
   return '';
 }
+
+
+/**
+ * Rename taxonomy vocabulary 'artist album track' to 'Artist'.
+ */
+function emusik_taxonomy_update_7000() { 
+  $v = taxonomy_vocabulary_machine_name_load('emusik_tx_artist_album_track');
+  $v->name = 'Artist';
+  taxonomy_vocabulary_save($v); 
+}
+
