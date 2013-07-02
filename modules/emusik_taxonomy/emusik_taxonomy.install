@@ -172,6 +172,7 @@ function emusik_taxonomy_update_7000() {
   $v = taxonomy_vocabulary_machine_name_load('emusik_tx_artist_album_track');
   $v->name = 'Artist';
   taxonomy_vocabulary_save($v); 
+  drupal_flush_all_caches();
 }
 
 /**
@@ -197,6 +198,7 @@ function emusik_taxonomy_update_7001() {
     'Elektronisk',
   );
   _emusic_taxonomy_create_terms($v->machine_name, $terms);
+  drupal_flush_all_caches();
 }
 
 /**
@@ -225,4 +227,5 @@ function emusik_taxonomy_update_7002() {
     $machine_name = _emusic_taxonomy_vocabulary_create_machine_name($area['name']);
     _emusic_taxonomy_create_terms($machine_name, $area['terms']);
   }
+  drupal_flush_all_caches();
 }
