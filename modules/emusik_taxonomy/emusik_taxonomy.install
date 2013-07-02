@@ -198,3 +198,31 @@ function emusik_taxonomy_update_7001() {
   );
   _emusic_taxonomy_create_terms($v->machine_name, $terms);
 }
+
+/**
+ * Create Area taxonomy.
+ */
+function emusik_taxonomy_update_7002() {
+  $area = array(
+    'name' => 'Area',
+    'description' => '',
+    'terms' => array(
+      'Nordjylland',
+      'Sydjylland',
+      'Midtjylland',
+      'Fyn',
+      'Sjælland',
+      'Øerne',
+    ),
+  );
+
+  $voc = _emusik_taxonomy_create_vocabulary($area);
+
+  if (is_object($voc)) {
+    _emusic_taxonomy_create_terms($voc, $area['terms']);
+  }
+  elseif ($voc === SAVED_NEW) {
+    $machine_name = _emusic_taxonomy_vocabulary_create_machine_name($area['name']);
+    _emusic_taxonomy_create_terms($machine_name, $area['terms']);
+  }
+}
