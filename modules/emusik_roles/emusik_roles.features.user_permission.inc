@@ -66,7 +66,9 @@ function emusik_roles_user_default_permissions() {
     'name' => 'access news feeds',
     'roles' => array(
       0 => 'administrator',
-      1 => 'super editor',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+      3 => 'super editor',
     ),
     'module' => 'aggregator',
   );
