@@ -99,7 +99,7 @@ function emusik_playlists_field_update_7000() {
 
     // Make sure primary keys do not repeat themselves.
     while (in_array(implode('-', $pk), $primary_keys)) {
-      $pk['delta'] ++;
+      $pk['delta']++;
       $row['delta']++;
     }
 
