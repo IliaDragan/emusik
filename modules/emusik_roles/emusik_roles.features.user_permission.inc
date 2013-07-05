@@ -66,7 +66,9 @@ function emusik_roles_user_default_permissions() {
     'name' => 'access news feeds',
     'roles' => array(
       0 => 'administrator',
-      1 => 'super editor',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+      3 => 'super editor',
     ),
     'module' => 'aggregator',
   );
@@ -248,17 +250,6 @@ function emusik_roles_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'locale',
-  );
-
-  // Exported permission: administer media.
-  $permissions['administer media'] = array(
-    'name' => 'administer media',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'editor',
-      2 => 'super editor',
-    ),
-    'module' => 'media',
   );
 
   // Exported permission: administer menu.
@@ -899,17 +890,6 @@ function emusik_roles_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: edit media.
-  $permissions['edit media'] = array(
-    'name' => 'edit media',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'editor',
-      2 => 'super editor',
-    ),
-    'module' => 'media',
-  );
-
   // Exported permission: edit own comments.
   $permissions['edit own comments'] = array(
     'name' => 'edit own comments',
@@ -1201,17 +1181,6 @@ function emusik_roles_user_default_permissions() {
       1 => 'super editor',
     ),
     'module' => 'filter',
-  );
-
-  // Exported permission: view media.
-  $permissions['view media'] = array(
-    'name' => 'view media',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'authenticated user',
-    ),
-    'module' => 'media',
   );
 
   // Exported permission: view own unpublished content.

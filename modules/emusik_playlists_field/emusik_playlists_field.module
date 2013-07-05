@@ -53,7 +53,7 @@ function emusik_playlists_field_field_formatter_view($entity_type, $entity, $fie
       $i = 1;
       foreach ($items as $delta => $item) {
         $links = array(
-          !empty($item['bibzoom_link']) ? l('', $item['bibzoom_link'], array('attributes' => array('class' => array('bibzoom'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
+          !empty($item['bibzoom_link']) ? l('', $item['bibzoom_link'], array('attributes' => array('class' => array('soundcloud'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
           !empty($item['wimp_link']) ? l('', $item['wimp_link'], array('attributes' => array('class' => array('wimp'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
           !empty($item['spotify_link']) ? l('', $item['spotify_link'], array('attributes' => array('class' => array('spotify'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
           !empty($item['bibliotek_link']) ? l('', $item['bibliotek_link'], array('attributes' => array('class' => array('bibliotek'), 'target'=>'_blank'), 'absolute' => TRUE)) : '',
@@ -169,7 +169,7 @@ function emusik_playlists_field_field_widget_form(&$form, &$form_state, $field, 
 
     $element['bibzoom_link'] = array(
       '#type' => 'textfield',
-      '#title' => t('Bibzoom link'),
+      '#title' => t('Soundcloud link'),
       '#default_value' => isset($items[$delta]['bibzoom_link']) ? $items[$delta]['bibzoom_link'] : NULL,
       '#element_validate' => array('_emusik_playlist_value_valid_url'),
     );

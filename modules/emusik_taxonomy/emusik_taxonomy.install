@@ -133,7 +133,7 @@ function _emusic_taxonomy_create_terms($voc, $terms) {
   // There are terms to be inserted, and the target vocabulary exists.
   if (is_array($terms) && isset($target_vocabulary->vid)) {
     foreach ($terms as $term) {
-      $existing = taxonomy_get_term_by_name($term);
+      $existing = taxonomy_get_term_by_name($term, $target_vocabulary->machine_name);
 
       if (count($existing) == 0) {
         $new_term = new stdClass();
@@ -162,4 +162,70 @@ function _emusic_taxonomy_vocabulary_create_machine_name($name) {
   }
 
   return '';
+}
+
+
+/**
+ * Rename taxonomy vocabulary 'artist album track' to 'Artist'.
+ */
+function emusik_taxonomy_update_7000() { 
+  $v = taxonomy_vocabulary_machine_name_load('emusik_tx_artist_album_track');
+  $v->name = 'Artist';
+  taxonomy_vocabulary_save($v); 
+  drupal_flush_all_caches();
+}
+
+/**
+ * Update Material type taxonomy.
+ */
+function emusik_taxonomy_update_7001() {
+  $v = taxonomy_vocabulary_machine_name_load('emusik_tx_material_type');
+  // Rename vacobulary.
+  $v->name = 'Genre';
+  taxonomy_vocabulary_save($v);
+
+  // remove all existing terms.
+  $tree = taxonomy_get_tree($v->vid);
+  foreach ($tree as $t) {
+    taxonomy_term_delete($t->tid);
+  }
+  // Create new terms.
+  $terms = array(
+    'Klassisk',
+    'Pop/Rock',
+    'World',
+    'Jazz',
+    'Elektronisk',
+  );
+  _emusic_taxonomy_create_terms($v->machine_name, $terms);
+  drupal_flush_all_caches();
+}
+
+/**
+ * Create Area taxonomy.
+ */
+function emusik_taxonomy_update_7002() {
+  $area = array(
+    'name' => 'Area',
+    'description' => '',
+    'terms' => array(
+      'Nordjylland',
+      'Sydjylland',
+      'Midtjylland',
+      'Fyn',
+      'Sjælland',
+      'Øerne',
+    ),
+  );
+
+  $voc = _emusik_taxonomy_create_vocabulary($area);
+
+  if (is_object($voc)) {
+    _emusic_taxonomy_create_terms($voc, $area['terms']);
+  }
+  elseif ($voc === SAVED_NEW) {
+    $machine_name = _emusic_taxonomy_vocabulary_create_machine_name($area['name']);
+    _emusic_taxonomy_create_terms($machine_name, $area['terms']);
+  }
+  drupal_flush_all_caches();
 }
