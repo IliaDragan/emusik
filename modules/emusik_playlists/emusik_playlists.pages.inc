@@ -36,8 +36,6 @@ function emusik_playlists_feed_get_xml() {
     emusik_playlists_feed_build_xml_tree($xml_tree, $nodes);
   }
 
-  //var_dump($nodes);
-
   return $xml_tree->asXml();
 }
 
