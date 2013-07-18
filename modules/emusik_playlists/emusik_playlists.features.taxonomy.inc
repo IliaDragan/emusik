@@ -18,7 +18,7 @@ function emusik_playlists_taxonomy_default_vocabularies() {
       'weight' => '0',
     ),
     'emusik_tx_artist_album_track' => array(
-      'name' => 'Artist/album/track',
+      'name' => 'Artist',
       'machine_name' => 'emusik_tx_artist_album_track',
       'description' => '',
       'hierarchy' => '0',
@@ -26,7 +26,7 @@ function emusik_playlists_taxonomy_default_vocabularies() {
       'weight' => '0',
     ),
     'emusik_tx_material_type' => array(
-      'name' => 'Material Type',
+      'name' => 'Genre',
       'machine_name' => 'emusik_tx_material_type',
       'description' => '',
       'hierarchy' => '0',
