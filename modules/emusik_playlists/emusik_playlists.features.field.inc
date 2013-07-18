@@ -185,7 +185,7 @@ function emusik_playlists_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_pl_artist_album_track',
-      'label' => 'Artist/Album/Track',
+      'label' => 'Artist',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -644,7 +644,7 @@ function emusik_playlists_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_playlist_material_type',
-      'label' => 'Material type',
+      'label' => 'Genre',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -845,10 +845,10 @@ function emusik_playlists_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Article type');
-  t('Artist/Album/Track');
+  t('Artist');
   t('Category');
   t('Image');
-  t('Material type');
+  t('Genre');
   t('Playlist');
   t('Supplier');
   t('Tags');
