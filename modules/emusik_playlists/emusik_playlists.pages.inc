@@ -15,7 +15,7 @@ define('FIELD_PROCESS_PLAYLIST', 'process_playlist');
  * Prepares the playlists feed and outputs it.
  */
 function emusik_playlists_feed() {
-  drupal_add_http_header('Content-Type', 'text/xml');
+  drupal_add_http_header('Content-Type', 'application/xml');
   $xml = emusik_playlists_feed_get_xml();
   echo $xml;
 
