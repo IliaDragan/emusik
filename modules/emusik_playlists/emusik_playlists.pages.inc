@@ -69,6 +69,17 @@ function emusik_playlists_feed_get_playlists() {
 function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
   $node_fields = array('body');
 
+  $field_map = array(
+    'field_playlist_image' => 'image',
+    'field_pl_artist_album_track' => 'artist',
+    'field_playlist_article_type' => 'type',
+    'field_playlist_category' => 'category',
+    'field_playlist_material_type' => 'material',
+    'field_playlist_supplier' => 'supplier',
+    'field_playlist_tags' => 'tags',
+    'field_playlist' => 'playlist',
+  );
+
   // Filter through node object fields. Title/default body is always present, so it's ommitted.
   foreach (reset($nodes) as $k => $v) {
     if (strstr($k, 'field_')) {
@@ -108,13 +119,13 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
         // Therefore, every field is parsed in a specific way.
         $processed_value = emusik_playlists_feed_process_field($field_item, $field_process);
 
-        $field_tag = $playlist_tag->addChild($field);
+        if (in_array($field, array_keys($field_map))) {
+          $field_tag = $playlist_tag->addChild($field_map[$field]);
 
-        foreach ($processed_value as $value) {
-          $item_tag = $field_tag->addChild('item');
-
-          foreach ($value as $key => $data) {
-            $item_tag->addChild($key, $data);
+          foreach ($processed_value as $value) {
+            foreach ($value as $key => $data) {
+              $field_tag->addChild($key, $data);
+            }
           }
         }
       }
@@ -149,7 +160,7 @@ function emusik_playlists_feed_process_field($field, $process) {
         break;
       case FIELD_PROCESS_FILE:
         $output[$delta] = array(
-          'path' => !empty($item->uri) ? file_create_url($item->uri) : '',
+          'path' => !empty($item['uri']) ? file_create_url($item['uri']) : '',
         );
         break;
       case FIELD_PROCESS_TAXONOMY:
