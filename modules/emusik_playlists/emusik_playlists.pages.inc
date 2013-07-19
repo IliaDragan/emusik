@@ -32,7 +32,7 @@ function emusik_playlists_feed_get_xml() {
   $xml_tree = new SimpleXmlElement('<emusik></emusik>');
   $nodes = emusik_playlists_feed_get_playlists();
 
-  if ($nodes) {
+  if (!empty($nodes)) {
     emusik_playlists_feed_build_xml_tree($xml_tree, $nodes);
   }
 
@@ -43,7 +43,7 @@ function emusik_playlists_feed_get_xml() {
  * Fetches all available playlist node types.
  *
  * @return Array/Boolean
- *   An array of node objects, or FALSE if nothing found.
+ *   An array of node objects.
  */
 function emusik_playlists_feed_get_playlists() {
   $entities = new EntityFieldQuery();
@@ -53,7 +53,7 @@ function emusik_playlists_feed_get_playlists() {
     ->propertyOrderBy('created', 'DESC')
     ->execute();
 
-  $playlists = !empty($ent_ids['node']) ? node_load_multiple(array_keys($ent_ids['node'])) : NULL;
+  $playlists = !empty($ent_ids['node']) ? node_load_multiple(array_keys($ent_ids['node'])) : array();
 
   return $playlists;
 }
@@ -156,7 +156,7 @@ function emusik_playlists_feed_process_field($field, $process) {
         $term = !empty($item['tid']) ? taxonomy_term_load($item['tid']) : '';
 
         $output[$delta] = array(
-          'term' => $term->name,
+          'term' => is_object($term) ? $term->name : '',
         );
         break;
       case FIELD_PROCESS_PLAYLIST:
