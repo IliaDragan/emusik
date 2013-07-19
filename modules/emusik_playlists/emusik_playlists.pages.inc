@@ -70,6 +70,7 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
   $node_fields = array('body');
 
   $field_map = array(
+    'body' => 'body',
     'field_playlist_image' => 'image',
     'field_pl_artist_album_track' => 'artist',
     'field_playlist_article_type' => 'type',
