@@ -12,3 +12,20 @@ include_once('emusik_playlists.features.inc');
 function emusik_playlists_ctools_plugin_directory($owner, $plugin_type) {
   return 'plugins/' . $plugin_type;
 }
+
+/**
+ * Implements hook_menu().
+ */
+function emusik_playlists_menu() {
+  $menu = array();
+
+  $menu['emusik/rss/playlists'] = array(
+    'page callback' => 'emusik_playlists_feed',
+    'page arguments' => array(),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'emusik_playlists.pages.inc',
+  );
+
+  return $menu;
+}
