@@ -19,7 +19,7 @@ function emusik_playlists_ctools_plugin_directory($owner, $plugin_type) {
 function emusik_playlists_menu() {
   $menu = array();
 
-  $menu['emusik/rss/playlists'] = array(
+  $menu['emusik/feed/playlists'] = array(
     'page callback' => 'emusik_playlists_feed',
     'page arguments' => array(),
     'access arguments' => array('access content'),
