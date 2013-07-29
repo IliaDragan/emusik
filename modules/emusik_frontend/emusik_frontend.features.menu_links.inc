@@ -145,7 +145,7 @@ function emusik_frontend_menu_default_menu_links() {
     'menu_name' => 'main-menu',
     'link_path' => 'taxonomy/term/1060',
     'router_path' => 'taxonomy/term/%',
-    'link_title' => 'Sjælland',
+    'link_title' => 'Sjælland og øerne',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -157,25 +157,6 @@ function emusik_frontend_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-46',
-    'parent_path' => 'koncerter',
-  );
-  // Exported menu link: main-menu:taxonomy/term/1061
-  $menu_links['main-menu:taxonomy/term/1061'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'taxonomy/term/1061',
-    'router_path' => 'taxonomy/term/%',
-    'link_title' => 'Øerne',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-45',
     'parent_path' => 'koncerter',
   );
   // Exported menu link: main-menu:taxonomy/term/1062
