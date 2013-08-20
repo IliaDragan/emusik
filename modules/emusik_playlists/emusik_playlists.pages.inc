@@ -78,7 +78,7 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
     'field_playlist_material_type' => 'material',
     'field_playlist_supplier' => 'supplier',
     'field_playlist_tags' => 'tags',
-    'field_playlist' => 'playlist',
+    'field_playlist' => 'tracks',
   );
 
   // Filter through node object fields. Title/default body is always present, so it's ommitted.
@@ -111,7 +111,7 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
         elseif (isset($field_item[0]['tid'])) {
           $field_process = FIELD_PROCESS_TAXONOMY;
         }
-        // Palylist fields.
+        // Playlist fields.
         elseif (isset($field_item[0]['youtube_link'])) {
           $field_process = FIELD_PROCESS_PLAYLIST;
         }
@@ -125,7 +125,16 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
 
           foreach ($processed_value as $value) {
             foreach ($value as $key => $data) {
-              $field_tag->addChild($key, $data);
+              if (is_array($value[$key])) {
+                $wrapper = $field_tag->addChild($key);
+
+                foreach ($data as $k => $v) {
+                  $wrapper->addChild($k, $v);
+                }
+              }
+              else {
+                $field_tag->addChild($key, $data);
+              }
             }
           }
         }
@@ -173,7 +182,7 @@ function emusik_playlists_feed_process_field($field, $process) {
         break;
       case FIELD_PROCESS_PLAYLIST:
         foreach ($item as $label => $value) {
-          $output[$delta][$label] = $value;
+          $output[$delta]['track'][$label] = $value;
         }
         break;
     }
