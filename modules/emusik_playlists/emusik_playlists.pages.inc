@@ -93,6 +93,7 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
 
     $playlist_tag->addChild('title', $node->title);
     $playlist_tag->addChild('created', $node->created);
+    $playlist_tag->addChild('link', url('node/' . $node->nid, array('absolute' => TRUE)));
 
     $user = user_load($node->uid);
     $playlist_tag->addChild('author', $user->name);
@@ -164,8 +165,8 @@ function emusik_playlists_feed_process_field($field, $process) {
     switch ($process) {
       case FIELD_PROCESS_PLAIN:
         $output[$delta] = array(
-          'value' => !empty($item['safe_value']) ? strip_tags($item['safe_value']) : '',
-          'summary' => !empty($item['safe_summary']) ? strip_tags($item['safe_summary']) : '',
+          'value' => !empty($item['safe_value']) ? strip_tags($item['safe_value'], '<br><b><p><strong>') : '',
+          'summary' => !empty($item['safe_summary']) ? strip_tags($item['safe_summary'], '<br><b><p><strong>') : '',
         );
         break;
       case FIELD_PROCESS_FILE:
