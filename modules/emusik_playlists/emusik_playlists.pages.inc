@@ -78,7 +78,7 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
     'field_playlist_material_type' => 'material',
     'field_playlist_supplier' => 'supplier',
     'field_playlist_tags' => 'tags',
-    'field_playlist' => 'playlist',
+    'field_playlist' => 'tracks',
   );
 
   // Filter through node object fields. Title/default body is always present, so it's ommitted.
@@ -93,6 +93,7 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
 
     $playlist_tag->addChild('title', $node->title);
     $playlist_tag->addChild('created', $node->created);
+    $playlist_tag->addChild('link', url('node/' . $node->nid, array('absolute' => TRUE)));
 
     $user = user_load($node->uid);
     $playlist_tag->addChild('author', $user->name);
@@ -111,7 +112,7 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
         elseif (isset($field_item[0]['tid'])) {
           $field_process = FIELD_PROCESS_TAXONOMY;
         }
-        // Palylist fields.
+        // Playlist fields.
         elseif (isset($field_item[0]['youtube_link'])) {
           $field_process = FIELD_PROCESS_PLAYLIST;
         }
@@ -125,7 +126,16 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
 
           foreach ($processed_value as $value) {
             foreach ($value as $key => $data) {
-              $field_tag->addChild($key, $data);
+              if (is_array($value[$key])) {
+                $wrapper = $field_tag->addChild($key);
+
+                foreach ($data as $k => $v) {
+                  $wrapper->addChild($k, $v);
+                }
+              }
+              else {
+                $field_tag->addChild($key, $data);
+              }
             }
           }
         }
@@ -155,8 +165,8 @@ function emusik_playlists_feed_process_field($field, $process) {
     switch ($process) {
       case FIELD_PROCESS_PLAIN:
         $output[$delta] = array(
-          'value' => !empty($item['safe_value']) ? strip_tags($item['safe_value']) : '',
-          'summary' => !empty($item['safe_summary']) ? strip_tags($item['safe_summary']) : '',
+          'value' => !empty($item['safe_value']) ? strip_tags($item['safe_value'], '<br><b><p><strong>') : '',
+          'summary' => !empty($item['safe_summary']) ? strip_tags($item['safe_summary'], '<br><b><p><strong>') : '',
         );
         break;
       case FIELD_PROCESS_FILE:
@@ -173,7 +183,7 @@ function emusik_playlists_feed_process_field($field, $process) {
         break;
       case FIELD_PROCESS_PLAYLIST:
         foreach ($item as $label => $value) {
-          $output[$delta][$label] = $value;
+          $output[$delta]['track'][$label] = $value;
         }
         break;
     }
