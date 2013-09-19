@@ -10,7 +10,7 @@
 function emusik_views_views_default_views() {
   $export = array();
 
-  $view = new view();
+  $view = new view;
   $view->name = 'emusik';
   $view->description = '';
   $view->tag = 'default';
@@ -22,7 +22,6 @@ function emusik_views_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'mere';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -149,7 +148,6 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['sorts']['field_event_date_value']['id'] = 'field_event_date_value';
   $handler->display->display_options['sorts']['field_event_date_value']['table'] = 'field_data_field_event_date';
   $handler->display->display_options['sorts']['field_event_date_value']['field'] = 'field_event_date_value';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -298,7 +296,6 @@ function emusik_views_views_default_views() {
     'emusik_tx_supplier' => 'emusik_tx_supplier',
   );
   $handler->display->display_options['arguments']['tid_3']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -465,7 +462,6 @@ function emusik_views_views_default_views() {
     'emusik_tx_supplier' => 'emusik_tx_supplier',
   );
   $handler->display->display_options['arguments']['tid_3']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -633,7 +629,6 @@ function emusik_views_views_default_views() {
     'emusik_tx_supplier' => 'emusik_tx_supplier',
   );
   $handler->display->display_options['arguments']['tid_3']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Promoted to front page */
   $handler->display->display_options['filters']['promote']['id'] = 'promote';
@@ -806,7 +801,6 @@ function emusik_views_views_default_views() {
     'emusik_tx_supplier' => 'emusik_tx_supplier',
   );
   $handler->display->display_options['arguments']['tid_3']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Promoted to front page */
   $handler->display->display_options['filters']['promote']['id'] = 'promote';
@@ -873,7 +867,6 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'rss';
   $handler->display->display_options['row_plugin'] = 'node_rss';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -924,7 +917,6 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['arguments']['keys']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['keys']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['keys']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -942,38 +934,6 @@ function emusik_views_views_default_views() {
   $handler->display->display_options['filters']['status']['group'] = 0;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   $handler->display->display_options['path'] = 'emusik/rss/search/%';
-
-  /* Display: Feed (playlists) */
-  $handler = $view->new_display('feed', 'Feed (playlists)', 'feed_4');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'eMusik playlists';
-  $handler->display->display_options['defaults']['link_display'] = FALSE;
-  $handler->display->display_options['link_display'] = 'feed_3';
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'rss';
-  $handler->display->display_options['row_plugin'] = 'node_rss';
-  $handler->display->display_options['row_options']['item_length'] = 'rss';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'emusik_playlist' => 'emusik_playlist',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 0;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  $handler->display->display_options['path'] = 'emusik/rss/playlists';
-  $handler->display->display_options['sitename_title'] = 0;
   $translatables['emusik'] = array(
     t('Master'),
     t('mere'),
@@ -996,8 +956,6 @@ function emusik_views_views_default_views() {
     t('Feed (playlists by author)'),
     t('Article type (field_ding_article_type)'),
     t('Local articles'),
-    t('Feed (playlists)'),
-    t('eMusik playlists'),
   );
   $export['emusik'] = $view;
 

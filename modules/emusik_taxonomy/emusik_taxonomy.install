@@ -213,8 +213,7 @@ function emusik_taxonomy_update_7004() {
       'Sydjylland',
       'Midtjylland',
       'Fyn',
-      'Sjælland',
-      'Øerne',
+      'Sjælland og øerne',
     ),
   );
 

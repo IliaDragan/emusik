@@ -40,10 +40,10 @@ function emusik_social_strongarm() {
   $strongarm->name = 'facebookshare_types';
   $strongarm->value = array(
     'ding_news' => 'ding_news',
+    'ding_event' => 'ding_event',
+    'emusik_playlist' => 'emusik_playlist',
     'ding_campaign' => 0,
-    'ding_event' => 0,
     'mkdru' => 0,
-    'emusik_playlist' => 0,
     'ding_page' => 0,
   );
   $export['facebookshare_types'] = $strongarm;
