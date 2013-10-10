@@ -24,7 +24,6 @@ function emusik_playlists_admin_form($form, $form_state) {
 
     $c = count($tree);
     for ($i = 0; $i < $c; $i++) {
-
       $form['emusik_playlist_feeds'][$i]['feed_enabled'] = array(
         '#type' => 'checkbox',
         '#default_value' => !empty($defaults[$i]['feed_enabled']) ? $defaults[$i]['feed_enabled'] : FALSE,

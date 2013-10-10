@@ -72,7 +72,7 @@ function emusik_playlists_feed_get_playlists($tid = NULL) {
  */
 function emusik_playlists_query_emp_feed_alter($query) {
   if ($_SESSION['emp_data']['current_tid']) {
-    $tid = $_SESSION['emp_data']['current_tid'];//var_dump($tid);
+    $tid = $_SESSION['emp_data']['current_tid'];
     $query->join('taxonomy_index', 'txid', 'txid.nid = node.nid');
     $query->condition('txid.tid', $tid);
   }
