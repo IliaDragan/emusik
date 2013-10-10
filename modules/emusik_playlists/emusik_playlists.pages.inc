@@ -14,9 +14,9 @@ define('FIELD_PROCESS_PLAYLIST', 'process_playlist');
  *
  * Prepares the playlists feed and outputs it.
  */
-function emusik_playlists_feed() {
+function emusik_playlists_feed($tid = NULL) {
   drupal_add_http_header('Content-Type', 'application/xml');
-  $xml = emusik_playlists_feed_get_xml();
+  $xml = emusik_playlists_feed_get_xml($tid);
   echo $xml;
 
   drupal_exit();
@@ -28,11 +28,11 @@ function emusik_playlists_feed() {
  * @return String
  *   XML structured response.
  */
-function emusik_playlists_feed_get_xml() {
+function emusik_playlists_feed_get_xml($tid = NULL) {
   $xml_tree = new SimpleXmlElement('<emusik></emusik>');
-  $nodes = emusik_playlists_feed_get_playlists();
+  $nodes = emusik_playlists_feed_get_playlists($tid);
 
-  if (!empty($nodes)) {
+  if (count($nodes) > 0) {
     emusik_playlists_feed_build_xml_tree($xml_tree, $nodes);
   }
 
@@ -45,17 +45,37 @@ function emusik_playlists_feed_get_xml() {
  * @return Array/Boolean
  *   An array of node objects.
  */
-function emusik_playlists_feed_get_playlists() {
+function emusik_playlists_feed_get_playlists($tid = NULL) {
   $entities = new EntityFieldQuery();
 
+
+  $_SESSION['emp_data']['current_tid'] = $tid;
   $ent_ids = $entities->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'emusik_playlist')
     ->propertyOrderBy('created', 'DESC')
+    ->addTag('emp_feed')
     ->execute();
 
   $playlists = !empty($ent_ids['node']) ? node_load_multiple(array_keys($ent_ids['node'])) : array();
 
   return $playlists;
+}
+
+/**
+ * Implements HOOK_query_TAG_alter().
+ *
+ * Since there is no way to do JOIN's in entity query, alter the query via
+ * a hook.
+ *
+ * @param QueryAlterableInterface $query
+ *   Query object, tagged lately with TAG tag.
+ */
+function emusik_playlists_query_emp_feed_alter($query) {
+  if ($_SESSION['emp_data']['current_tid']) {
+    $tid = $_SESSION['emp_data']['current_tid'];//var_dump($tid);
+    $query->join('taxonomy_index', 'txid', 'txid.nid = node.nid');
+    $query->condition('txid.tid', $tid);
+  }
 }
 
 /**
@@ -130,11 +150,11 @@ function emusik_playlists_feed_build_xml_tree(&$tree, $nodes) {
                 $wrapper = $field_tag->addChild($key);
 
                 foreach ($data as $k => $v) {
-                  $wrapper->addChild($k, $v);
+                  $wrapper->addChild($k, htmlspecialchars($v));
                 }
               }
               else {
-                $field_tag->addChild($key, $data);
+                $field_tag->addChild($key, htmlspecialchars($data));
               }
             }
           }
