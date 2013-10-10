@@ -19,6 +19,16 @@ function emusik_playlists_ctools_plugin_directory($owner, $plugin_type) {
 function emusik_playlists_menu() {
   $menu = array();
 
+  $menu['admin/config/emusik/playlists'] = array(
+    'title' => 'Configure playlist feeds',
+    'description' => 'Customize playlist feeds access',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emusik_playlists_admin_form'),
+    'access arguments' => array('administer playlist feeds'),
+    'type' => MENU_CALLBACK,
+    'file' => 'emusik_playlists.admin.inc',
+  );
+
   $menu['emusik/feed/playlists'] = array(
     'page callback' => 'emusik_playlists_feed',
     'page arguments' => array(),
@@ -27,5 +37,43 @@ function emusik_playlists_menu() {
     'file' => 'emusik_playlists.pages.inc',
   );
 
+  $defaults = variable_get('emusik_playlist_feeds_filter', array());
+
+  foreach ($defaults as $default) {
+    // Lame-proof check.
+    if (!isset($default['feed_enabled']) || $default['feed_enabled'] != 1 || empty($default['feed_path']) || empty($default['feed_term_tid'])) {
+      continue;
+    }
+
+    $menu['emusik/feed/' . $default['feed_path']] = array_merge($menu['emusik/feed/playlists'], array('page arguments' => array($default['feed_term_tid'])));
+  }
+
   return $menu;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function emusik_playlists_permission() {
+  $perm = array();
+
+  $perm['administer playlist feeds'] = array(
+    'title' => t('Administer playlists feeds'),
+    'description' => t('Allow roles to edit the access of certain playlist feeds'),
+  );
+
+  return $perm;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function emusik_playlists_theme($existing, $type, $theme, $path) {
+  $hooks = array();
+
+  $hooks['emusik_playlists_feeds_table'] = array(
+    'render element' => 'element',
+  );
+
+  return $hooks;
 }
