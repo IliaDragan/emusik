@@ -5,6 +5,7 @@ package = eMusik
 php = 5.2.4
 version = 7.x-1.0
 project = emusik_playlists
+configure = admin/config/emusik/playlists
 dependencies[] = ding_content
 dependencies[] = emusik
 dependencies[] = emusik_playlists_field
